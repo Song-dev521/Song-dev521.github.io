@@ -1,42 +1,376 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title>宋鑫如的博客</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大一暑假 · 后端开发实战复盘</title>
+    <style>
+        /* ===== 全局样式 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: #f5f7fa;
+            color: #1e293b;
+            line-height: 1.8;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 48px 56px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        /* ===== 头部 ===== */
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #eef2f6;
+            padding-bottom: 32px;
+            margin-bottom: 32px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0b2b4a;
+            letter-spacing: 0.5px;
+        }
+
+        .header .meta {
+            margin-top: 12px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .header .meta span {
+            margin: 0 12px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1d4ed8;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 2px 14px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        /* ===== 正文 ===== */
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0b2b4a;
+            margin: 36px 0 14px 0;
+            padding-left: 14px;
+            border-left: 4px solid #2563eb;
+        }
+
+        h3 {
+            font-size: 17px;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 24px 0 10px 0;
+        }
+
+        p {
+            margin-bottom: 14px;
+            color: #334155;
+        }
+
+        ul, ol {
+            margin: 10px 0 16px 24px;
+            color: #334155;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        a {
+            color: #2563eb;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: 0.2s;
+        }
+
+        a:hover {
+            border-bottom-color: #2563eb;
+        }
+
+        /* ===== 引用块 ===== */
+        .quote {
+            background: #f1f5f9;
+            border-left: 4px solid #2563eb;
+            padding: 14px 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #1e293b;
+        }
+
+        /* ===== 卡片 ===== */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        .card {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 16px 20px;
+            border: 1px solid #e9edf2;
+        }
+
+        .card .num {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        .card .label {
+            font-size: 14px;
+            color: #475569;
+        }
+
+        @media (max-width: 600px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 24px 18px;
+            }
+            .header h1 {
+                font-size: 22px;
+            }
+        }
+
+        /* ===== 分隔线 ===== */
+        hr {
+            border: none;
+            border-top: 2px dashed #e2e8f0;
+            margin: 40px 0 24px 0;
+        }
+
+        .footer {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+    </style>
 </head>
-
 <body>
-  <h1>宋鑫如的暑假总结</h1>
-  <p>2026年7月18日</p>
-  <hr>
-  <h2>大一暑假，我如何在3周内从"不会Java后端"到"独立完成13个接口"</h2>
+<div class="container">
 
-  <h3>一、任务背景</h3>
-  <p>我负责的项目叫"小微智管"——一个面向小微商户的低代码AI进销存系统。</p>
+    <!-- ========== 头部 ========== -->
+    <div class="header">
+        <h1>大一暑假 · 后端开发实战复盘</h1>
+        <div class="meta">
+            📅 2026 年 7 月 18 日
+            <span>·</span>
+            ⏱ 阅读约 6 分钟
+        </div>
+        <div class="badge"># 实战经验 · 大一 · 后端开发</div>
+    </div>
 
-  <h3>二、我遇到的7个问题</h3>
-  <p><strong>1. Maven依赖下载慢</strong><br>换成阿里云镜像源解决。</p>
-  <p><strong>2. MySQL连接失败</strong><br>配置文件和本地密码不一致，改配置文件。</p>
-  <p><strong>3. 数据库表不存在</strong><br>导入若依的SQL文件。</p>
-  <p><strong>4. 接口401认证失败</strong><br>在SecurityConfig里放行/api/**。</p>
-  <p><strong>5. 接口500：Content-Type不支持</strong><br>Postman加Content-Type头。</p>
-  <p><strong>6. productId始终为null</strong><br>用@Results注解解决字段映射问题。</p>
-  <p><strong>7. Redis连不上</strong><br>启动redis-server.exe。</p>
+    <!-- ========== 正文 ========== -->
 
-  <h3>三、项目成果</h3>
-  <ul>
-    <li>13个可用接口（AI对话 + 进销存）</li>
-    <li>6张数据库表</li>
-    <li>6条AI Prompt模板</li>
-    <li>代码已开源：<a href="https://gitee.com/Sstars-1/xiaowei-zhiguan">https://gitee.com/Sstars-1/xiaowei-zhiguan</a></li>
-  </ul>
+    <p>
+        这个暑假，我接手了一个校级大创项目的后端开发任务。
+        在此之前，我只学过 Java 基础（数据类型、循环、面向对象），
+        完全没有接触过 Spring Boot、MyBatis、MySQL 和 Redis。
+    </p>
 
-  <h3>四、总结</h3>
-  <p>大一下学期，能独立完成一套完整的后端系统，已经比很多大二大三的同学都强了。AI是工具，不是替代品。先跑通，再理解。</p>
+    <p>
+        <strong>3 周后，我交付了 13 个可用接口、6 张数据库表、50 条别名数据，项目完整跑通。</strong>
+    </p>
 
-  <hr>
-  <p>© 2026 宋鑫如</p>
+    <div class="quote">
+        🚀 先跑通，再理解——这是这个暑假最重要的认知。
+    </div>
+
+    <!-- ========== 一、任务背景 ========== -->
+    <h2>一、任务背景</h2>
+
+    <p>
+        我参与的项目叫 <strong>“小微智管”</strong>——一个面向小微商户的低代码 AI 进销存系统。
+        我负责的是后端开发，包括：
+    </p>
+
+    <ul>
+        <li>基于若依框架完成后端环境搭建</li>
+        <li>对接 DeepSeek API 实现 AI 经营建议</li>
+        <li>完成商品、进货、销售、库存的完整接口</li>
+    </ul>
+
+    <p>
+        听起来不难，但当时的我，连 Spring Boot 是什么都没搞清楚。
+    </p>
+
+    <!-- ========== 二、成果速览 ========== -->
+    <h2>二、成果速览</h2>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="num">13</div>
+            <div class="label">可用接口<br>（AI + 进销存）</div>
+        </div>
+        <div class="card">
+            <div class="num">6</div>
+            <div class="label">数据库表<br>（含别名库）</div>
+        </div>
+        <div class="card">
+            <div class="num">6</div>
+            <div class="label">AI Prompt 模板<br>（覆盖 6 个经营场景）</div>
+        </div>
+        <div class="card">
+            <div class="num">50</div>
+            <div class="label">别名数据<br>（覆盖 3 种商品）</div>
+        </div>
+    </div>
+
+    <!-- ========== 三、我遇到的 7 个问题 ========== -->
+    <h2>三、我遇到的 7 个问题</h2>
+
+    <h3>1. Maven 依赖下载慢 / 失败</h3>
+    <p>
+        <strong>现象：</strong>IDEA 打开项目后，右下角进度条转了 20 分钟还没停，还报了一堆红字。<br>
+        <strong>解决：</strong>换成阿里云镜像源。修改 <code>settings.xml</code>，添加 <code>mirror</code> 配置。<br>
+        <strong>学到：</strong>Maven 的依赖管理机制，以及国内镜像的重要性。
+    </p>
+
+    <h3>2. MySQL 连接失败：<code>Access denied</code></h3>
+    <p>
+        <strong>现象：</strong>若依启动时报 <code>Access denied for user 'root'@'localhost'</code>。<br>
+        <strong>解决：</strong>配置文件 <code>application-druid.yml</code> 里的密码和本地 MySQL 密码不一致，改成一致就好了。<br>
+        <strong>学到：</strong>配置文件优先级、<code>@Value</code> 注入原理。
+    </p>
+
+    <h3>3. 数据库表不存在：<code>Table 'ry-vue.sys_config' doesn't exist</code></h3>
+    <p>
+        <strong>现象：</strong>若依启动报错，说 <code>sys_config</code> 表不存在。<br>
+        <strong>解决：</strong>在 <code>sql</code> 目录下找到 <code>ry_2024xxxx.sql</code> 和 <code>quartz.sql</code>，在 MySQL 里执行。<br>
+        <strong>学到：</strong>如何用 MySQL 命令行执行 SQL 脚本，以及数据库初始化流程。
+    </p>
+
+    <h3>4. 接口 401 认证失败</h3>
+    <p>
+        <strong>现象：</strong>写的 <code>/api/ai/chat</code> 接口返回 401。<br>
+        <strong>解决：</strong>在 <code>SecurityConfig.java</code> 的 <code>permitAll()</code> 列表里加上 <code>/api/**</code>。<br>
+        <strong>学到：</strong>Spring Security 的拦截机制，以及如何配置白名单路径。
+    </p>
+
+    <h3>5. 接口 500：<code>Content-Type</code> 不支持</h3>
+    <p>
+        <strong>现象：</strong>放行后报错 <code>Content-Type 'application/octet-stream' is not supported</code>。<br>
+        <strong>解决：</strong>Postman 的 Headers 里没设置 <code>Content-Type: application/json</code>，加上就好了。<br>
+        <strong>学到：</strong>HTTP 请求头的作用，以及 Postman 的正确配置。
+    </p>
+
+    <h3>6. <code>productId</code> 始终为 null</h3>
+    <p>
+        <strong>现象：</strong>数据库里 <code>product_id</code> 有值，但接口返回的 <code>productId</code> 一直是 <code>null</code>。<br>
+        <strong>解决：</strong>在 Mapper 里加 <code>@Results</code> 显式指定字段映射关系。<br>
+        <strong>学到：</strong>MyBatis 的 ORM 映射原理，以及驼峰命名转换规则。
+    </p>
+
+    <h3>7. Redis 连不上</h3>
+    <p>
+        <strong>现象：</strong>启动报 <code>Unable to connect to Redis</code>。<br>
+        <strong>解决：</strong>找到 Redis 安装目录，双击 <code>redis-server.exe</code> 启动。<br>
+        <strong>学到：</strong>若依使用 Redis 做缓存，启动后端前必须先启动 Redis。
+    </p>
+
+    <!-- ========== 四、我学到的东西 ========== -->
+    <h2>四、我真正学到的东西</h2>
+
+    <div class="grid-2">
+        <div class="card">
+            <div style="font-weight:600; color:#475569; font-size:14px;">之前会</div>
+            <div style="margin-top:4px; color:#1e293b;">Java 基础语法</div>
+            <div style="margin-top:8px; font-weight:600; color:#475569; font-size:14px;">之后会</div>
+            <div style="margin-top:4px; color:#1e293b;">Spring Boot + MyBatis + 若依框架</div>
+        </div>
+        <div class="card">
+            <div style="font-weight:600; color:#475569; font-size:14px;">之前会</div>
+            <div style="margin-top:4px; color:#1e293b;">命令行基础</div>
+            <div style="margin-top:8px; font-weight:600; color:#475569; font-size:14px;">之后会</div>
+            <div style="margin-top:4px; color:#1e293b;">MySQL 数据库设计 + 6 张表</div>
+        </div>
+        <div class="card">
+            <div style="font-weight:600; color:#475569; font-size:14px;">之前会</div>
+            <div style="margin-top:4px; color:#1e293b;">没碰过 Git</div>
+            <div style="margin-top:8px; font-weight:600; color:#475569; font-size:14px;">之后会</div>
+            <div style="margin-top:4px; color:#1e293b;">用 Gitee 管理代码，git add / commit / push</div>
+        </div>
+        <div class="card">
+            <div style="font-weight:600; color:#475569; font-size:14px;">之前会</div>
+            <div style="margin-top:4px; color:#1e293b;">只会在本地运行</div>
+            <div style="margin-top:8px; font-weight:600; color:#475569; font-size:14px;">之后会</div>
+            <div style="margin-top:4px; color:#1e293b;">IDEA + Maven + MySQL + Redis 全链路</div>
+        </div>
+    </div>
+
+    <!-- ========== 五、给同学的建议 ========== -->
+    <h2>五、给同样在路上的同学</h2>
+
+    <ul>
+        <li>
+            <strong>先跑通，再理解。</strong>
+            不要试图一开始就搞懂每一行代码。先把项目跑起来，看到效果，再回头研究原理。
+        </li>
+        <li>
+            <strong>报错是老师。</strong>
+            每一个红色的报错，都在教你一个具体的技术细节。复制报错信息去搜，比看 10 篇教程都管用。
+        </li>
+        <li>
+            <strong>用 Postman 先验证。</strong>
+            不要等前端页面写好了再调接口。Postman 就是你的“前端”，先把接口测通，后面联调会顺利很多。
+        </li>
+        <li>
+            <strong>不会 Python 也能做后端。</strong>
+            任务书里写的是 Python，但我用 Java 全部实现了。技术只是工具，重要的是功能完成。
+        </li>
+    </ul>
+
+    <!-- ========== 六、项目开源 ========== -->
+    <h2>六、项目成果</h2>
+
+    <ul>
+        <li><strong>13 个可用接口</strong>（AI 对话 + 进销存 CRUD）</li>
+        <li><strong>6 张数据库表</strong>（product、purchase、sales、inventory、product_alias 等）</li>
+        <li><strong>6 条 AI Prompt 模板</strong>（覆盖 6 个经营场景）</li>
+        <li><strong>完整代码已开源</strong>：
+            <a href="https://gitee.com/Sstars-1/xiaowei-zhiguan" target="_blank">
+                https://gitee.com/Sstars-1/xiaowei-zhiguan
+            </a>
+        </li>
+    </ul>
+
+    <div class="quote">
+        “大一下学期，能独立完成一套完整的后端系统，已经比很多大二大三的同学都强了。<br>
+        AI 是工具，不是替代品。先跑通，再理解。”
+    </div>
+
+    <!-- ========== 底部 ========== -->
+    <hr>
+
+    <div class="footer">
+        写于 2026 年 7 月 · 暑假复盘
+    </div>
+
+</div>
 </body>
-
 </html>
