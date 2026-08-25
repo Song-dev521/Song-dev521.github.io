@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="66b8a3b7-29fe-4adb-8d41-9543c78c1065" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/一次GitHub推送被拒的经历：我的阿里云密钥是如何暴露的.html" beforeDir="false" afterPath="$PROJECT_DIR$/一次GitHub推送被拒的经历：我的阿里云密钥是如何暴露的.html" afterDir="false" />
-    </list>
+    <list default="true" id="66b8a3b7-29fe-4adb-8d41-9543c78c1065" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
