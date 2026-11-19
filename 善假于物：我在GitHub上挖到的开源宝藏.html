@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>善假于物：我在 GitHub 上挖到的开源宝藏</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #fafafa;
+            color: #222;
+            padding: 40px 20px;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 50px 60px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        .meta {
+            color: #8b8b8b;
+            font-size: 14px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .meta span {
+            margin-right: 16px;
+        }
+        .meta .tag {
+            display: inline-block;
+            background: #eef2ff;
+            color: #4f6ef7;
+            font-size: 12px;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-top: 32px;
+            margin-bottom: 12px;
+            padding-bottom: 4px;
+        }
+        h3 {
+            font-size: 17px;
+            font-weight: 600;
+            color: #2d2d44;
+            margin-top: 24px;
+            margin-bottom: 8px;
+        }
+        p {
+            margin-bottom: 16px;
+            color: #333;
+        }
+        blockquote {
+            background: #f7f8fc;
+            border-left: 4px solid #4f6ef7;
+            padding: 16px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-style: italic;
+            color: #555;
+        }
+        blockquote p {
+            margin-bottom: 0;
+        }
+        pre {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            padding: 18px 22px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 14px;
+            font-family: "Fira Code", "JetBrains Mono", monospace;
+            line-height: 1.6;
+            margin: 16px 0;
+        }
+        pre .comment {
+            color: #6c7086;
+        }
+        pre .keyword {
+            color: #cba6f7;
+        }
+        pre .string {
+            color: #a6e3a1;
+        }
+        pre .variable {
+            color: #f9e2af;
+        }
+        code {
+            font-family: "Fira Code", "JetBrains Mono", monospace;
+            font-size: 14px;
+            background: #f0f0f5;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #d63384;
+        }
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+        ul, ol {
+            margin: 12px 0 16px 24px;
+        }
+        li {
+            margin-bottom: 6px;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+        table th {
+            background: #f0f2f5;
+            text-align: left;
+            padding: 10px 14px;
+            border: 1px solid #e8e8ea;
+            font-weight: 600;
+        }
+        table td {
+            padding: 10px 14px;
+            border: 1px solid #e8e8ea;
+        }
+        .divider {
+            border: none;
+            border-top: 2px solid #f0f2f5;
+            margin: 32px 0;
+        }
+        .footer-note {
+            background: #f7f8fc;
+            padding: 20px 24px;
+            border-radius: 8px;
+            margin-top: 32px;
+            text-align: center;
+            color: #6c7086;
+            font-size: 14px;
+        }
+        .footer-note a {
+            color: #4f6ef7;
+            text-decoration: none;
+        }
+        .footer-note a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 640px) {
+            .container { padding: 24px 20px; }
+            h1 { font-size: 22px; }
+            pre { font-size: 13px; padding: 14px 16px; }
+            .meta .tag { font-size: 11px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>善假于物：我在 GitHub 上挖到的开源宝藏<br>一份关于"免费、开源、真香"的私人工具清单</h1>
+
+    <div class="meta">
+        <span>📅 2026年10月11日</span>
+        <span>📖 阅读约 8 分钟</span>
+        <span class="tag"># 开源 · 工具分享</span>
+    </div>
+
+    <blockquote>
+        <p>写在前面：荀子说"君子生非异也，善假于物也"。这段时间逛 GitHub，陆陆续续捡到一些好东西——有的帮我省下大把重复劳动，有的让页面从"能用"变得"好看"。挑了九个自己真正在用、也真心觉得好的，整理成这份清单，分享给你。</p>
+    </blockquote>
+
+    <p>我一直觉得，好的工具不该只是"能跑"，而是那种用完之后会忍不住想"早该遇到你"的东西。下面这些项目，一半是提升日常效率的实用软件，一半是让前端页面脱胎换骨的美学弹药库。全部开源、免费，而且都还在活跃更新。</p>
+
+    <h2>一、效率工具：把电脑用得更顺手</h2>
+
+    <h3>🗂️ 1. Filee —— 拖一下，什么格式都能转</h3>
+
+    <p>格式转换是个高频又别扭的需求：装 Office 全家桶太重，用在线网站又担心文件被上传。<strong>Filee</strong> 的解法很干脆——<strong>全部在本地完成，一个文件都不上传</strong>。</p>
+
+    <p>它是韩国开发者 KnifeLemon 用 C# / .NET 10 + Avalonia 写的开源转换工具（MIT 协议），支持图片、PDF、Word、Excel、PPT、HWP、音视频、电子书等 17 大类、两百多种格式。最妙的交互是：在文件管理器里按住 Ctrl（macOS 是 Option）拖住文件，光标旁会弹出一个"格式圆环"，松手就转换完成，结果直接落在原文件旁边。</p>
+
+    <p>除了拖拽，它也提供命令行，适合批量处理和自动化：</p>
+
+    <pre>
+<span class="comment"># 单文件转换</span>
+filee convert photo.heic --to jpg
+
+<span class="comment"># 批量转换并指定质量</span>
+filee convert *.png --to webp --quality 80 -o converted
+
+<span class="comment"># 监听文件夹：扔进去什么就转什么</span>
+filee watch D:\Inbox --to pdf --move-originals</pre>
+
+    <p>它底层靠 FFmpeg、LibreOffice、Calibre、Pandoc 等引擎"分层"工作，需要时按需下载。目前 Windows 是正式版，macOS 和 Linux 是预览版。项目很新（2026 年 9 月建仓），迭代飞快——这也意味着边角 bug 会多一些，转换复杂文档建议人工过一眼版式。</p>
+
+    <h3>🌐 2. OCS Desktop —— 浏览器多开与自动化神器</h3>
+
+    <p><strong>OCS Desktop</strong>（ocsjs/ocs-desktop）是 OCS 生态的桌面端，基于 <strong>Electron + Vue 3 + TypeScript</strong> 构建。它把用户脚本、浏览器管理、多账号操作整合到一个客户端里：一键启动脚本、浏览器多开/分身、自动登录、多账号批处理……跨平台支持 Windows / Linux / macOS。</p>
+
+    <p>技术上有个很聪明的设计：它<strong>不内置 Chromium，而是复用你电脑上已有的本地浏览器</strong>，所以打包体积能压得很小。开发也简单：</p>
+
+    <pre>
+corepack enable
+pnpm install
+pnpm dev        <span class="comment"># 同时启动 Web 界面与 Electron 主进程</span>
+pnpm build      <span class="comment"># 打包</span></pre>
+
+    <p>它最适合"需要重复执行浏览器操作"的场景。当然，功能强也意味着要用在合规的地方——用来自动化自己的重复工作流很香，别拿它去做违反平台规则的事。</p>
+
+    <h3>📱 3. LocalSend —— 跨平台的"隔空投送"</h3>
+
+    <p>苹果有 AirDrop，但跨系统传个文件总让人头疼。<strong>LocalSend</strong> 就是那个"全平台通用版 AirDrop"：Windows、macOS、Linux、Android、iOS 都能用，<strong>不需要联网、不需要账号、不需要服务器</strong>，文件只在你的局域网里跑。</p>
+
+    <p>它用 REST API + HTTPS 通信，TLS 证书在每台设备上临时生成，还支持 PIN 验证，做到端到端加密。传输走 Wi-Fi 满速，没有带宽限制，也没有广告和追踪。安装后同一网络下自动发现附近设备，点一下就发。</p>
+
+    <blockquote>
+        <p>和 Filee 一样，LocalSend 的"底气"也是三个字：<strong>不上传</strong>。在隐私越来越值钱的今天，这本身就是核心功能。</p>
+    </blockquote>
+
+    <h2>二、前端美学：让页面从"能用"到"好看"</h2>
+
+    <p>下面这组是我做前端时反复打开的"灵感弹药库"。它们的共同点是：<strong>代码是复制进你项目的，属于你自己</strong>，而不是被锁在某个 npm 依赖里。</p>
+
+    <h3>✨ 4. Motion —— 会动的界面才有灵魂</h3>
+
+    <p><strong>Motion</strong>（motion.dev，前身就是大名鼎鼎的 Framer Motion）是 React / Vue / 原生 JS 生态里最受欢迎的动画库之一，GitHub 三万多星，MIT 协议。它把动效当成一种"交互语言"而不是装饰：弹簧物理、手势（hover / tap / drag）、布局动画、滚动联动，甚至元素离开 DOM 的退场动画都能优雅处理。</p>
+
+    <pre>
+<span class="comment">// npm install motion</span>
+<span class="keyword">import</span> { animate, stagger, inView } <span class="keyword">from</span> <span class="string">"motion"</span>;
+
+<span class="comment">// 弹簧动画：CSS 做不出来的手感</span>
+animate(<span class="string">".box"</span>, { scale: 1.2, rotate: 10 }, { type: <span class="string">"spring"</span>, stiffness: 300, damping: 15 });
+
+<span class="comment">// 滚动进入视口时触发</span>
+inView(<span class="string">".section"</span>, (el) =&gt; animate(el, { opacity: 1, y: 0 }));</pre>
+
+    <p>它分两个体积版本：<strong>mini 版只有约 2.6kb</strong>（走浏览器原生 Web Animations API），完整版约 18kb，还支持 tree-shaking。这里也顺带记一份我自己常用的<strong>动效参数规范</strong>——好的动效靠的不是"感觉"，而是统一的时长与缓动：</p>
+
+    <ul>
+        <li><strong>时长</strong>：微交互（hover / 图标）150ms，常规过渡 200ms，结构变化（抽屉 / 折叠）300ms，页面入场 400–600ms；单个动画别超过 800ms。</li>
+        <li><strong>缓动</strong>：进入用 <code>cubic-bezier(0.16,1,0.3,1)</code>，退出更快，位移用 <code>cubic-bezier(0.4,0,0.2,1)</code>，循环才用 linear。</li>
+        <li><strong>降级</strong>：一定要处理 <code>prefers-reduced-motion</code>，这是对用户的尊重。</li>
+    </ul>
+
+    <h3>🧩 5. React Bits —— 复制粘贴就能用的动效组件</h3>
+
+    <p>如果说 Motion 是"引擎"，那 <strong>React Bits</strong> 就是一整箱"成品零件"。它号称是最大、最有创造力的 React 动画组件库，<strong>215 个免费组件</strong>，分成文字动画、动画效果、交互组件、微交互、背景特效五大类。粒子汇聚成照片、文字逐字拼装、鼠标跟随的光晕……这些你从零写要两天的东西，这里直接给你源码。</p>
+
+    <p>每个组件都有四种版本（JS / TS × CSS / Tailwind），通过 shadcn CLI 一行命令装进项目，<strong>装的是源码，不是依赖</strong>——装完就能改，改完就是你的：</p>
+
+    <pre>
+npx shadcn@latest add @react-bits/SplitText-TS-TW
+npx shadcn@latest add @react-bits/Aurora-TS-TW</pre>
+
+    <p>还有 Background Studio、Shape Magic 等五个在线可视化工具，可以边调边导出代码。Vue 和 Svelte 也有官方移植版（Vue Bits / Svelte Bits）。</p>
+
+    <h3>🎨 6. Uiverse —— 全世界最大的开源 UI 元素库</h3>
+
+    <p><strong>Uiverse</strong> 是一个社区驱动的开源 UI 元素库，七千多个元素，<strong>100% 免费可商用</strong>，三十多万贡献者。按钮、加载动画、输入框、玻璃拟态卡片、Tooltip……日常用到的小控件几乎都能在这里找到。</p>
+
+    <p>它的用法极简：搜到你想要的元素 → 选 HTML/CSS、Tailwind、React 或 Figma → 复制粘贴 → 只改颜色、圆角、动效时长这三样，结构别动，最快也最不容易翻车。如果粘贴后样式乱了，多半是项目没引 Tailwind 或 CSS 作用域冲突，改用纯 HTML/CSS 版本即可绕开。</p>
+
+    <h3>🌌 7. Aceternity UI —— Tailwind 界的"视觉魔法"</h3>
+
+    <p><strong>Aceternity UI</strong> 是 Tailwind CSS + Framer Motion 的动画组件集，70 多个组件，主打"抄进来就会动"：3D 倾斜卡片、跟随鼠标的聚光灯、背景光束、流动边框、波浪背景、Mac 风格 Dock……很多效果你都在 Linear、Vercel、Clerk 这些网站见过。</p>
+
+    <p>它同样走 shadcn registry 的路子，代码直接落到 <code>components/ui/</code>，没有任何运行时依赖：</p>
+
+    <pre>
+npx shadcn@latest init
+npx shadcn@latest add @aceternity/3d-card
+npx shadcn@latest add @aceternity/background-beams
+npx shadcn@latest add @aceternity/spotlight</pre>
+
+    <p>注意有些组件（比如 Spotlight）需要你在 Tailwind 配置里补一段 keyframes，文档写得很清楚，照着加就行。免费版已经足够撑起一个漂亮的个人站，Pro 是可选的付费增强。</p>
+
+    <h3>🧱 8. shadcn/ui —— 组件不属于库，而属于你自己</h3>
+
+    <p>上面两个组件库都基于同一个理念，源头就是 <strong>shadcn/ui</strong>。它严格来说"不是一个组件库"，而是一组你可以复制到项目里的组件集合，底层用 Radix UI 保证无障碍、用 Tailwind 做样式。</p>
+
+    <p>它的颠覆性在于：没有 npm 依赖，组件源码直接进你的仓库，你怎么改都行。这种"代码归你"的模式现在几乎成了新一代组件库的标准，React Bits、Aceternity 都是它的信徒。还没用过的强烈建议从它入门：</p>
+
+    <pre>
+npx shadcn@latest init
+npx shadcn@latest add button card dialog</pre>
+
+    <h3>🔣 9. Lucide —— 图标界的"万能通用语"</h3>
+
+    <p>最后一个补一个"小而美"的：<strong>Lucide</strong> 是我用过最顺手的开源图标库，一千多个统一线条风格的 SVG 图标，支持 React / Vue / Svelte 等几乎所有框架，按需引入、可改颜色和粗细，tree-shaking 友好。它是我每个前端项目的标配——图标这种细节统一了，整个界面的"精致感"立刻就上来了。</p>
+
+    <pre>
+npm install lucide-react
+<span class="comment">// import { House, Search, Settings } from "lucide-react"</span></pre>
+
+    <hr class="divider">
+
+    <h2>一张表快速对比</h2>
+
+    <table>
+        <thead>
+        <tr><th>项目</th><th>类别</th><th>一句话</th><th>协议</th></tr>
+        </thead>
+        <tbody>
+        <tr><td>Filee</td><td>效率工具</td><td>本地拖拽式格式转换，两百多种格式</td><td>MIT</td></tr>
+        <tr><td>OCS Desktop</td><td>效率工具</td><td>浏览器多开与用户脚本桌面端</td><td>开源</td></tr>
+        <tr><td>LocalSend</td><td>效率工具</td><td>跨平台局域网互传，不联网也能发</td><td>Apache-2.0</td></tr>
+        <tr><td>Motion</td><td>前端动效</td><td>弹簧物理与手势动画库</td><td>MIT</td></tr>
+        <tr><td>React Bits</td><td>前端组件</td><td>215 个可复制的动效组件</td><td>MIT + Commons Clause</td></tr>
+        <tr><td>Uiverse</td><td>前端组件</td><td>七千多个社区 UI 元素</td><td>开源可商用</td></tr>
+        <tr><td>Aceternity UI</td><td>前端组件</td><td>Tailwind 动画组件集</td><td>开源</td></tr>
+        <tr><td>shadcn/ui</td><td>前端组件</td><td>代码归你的组件集合</td><td>MIT</td></tr>
+        <tr><td>Lucide</td><td>前端资源</td><td>统一风格的开源图标库</td><td>ISC</td></tr>
+        </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <h2>写在最后</h2>
+
+    <p>整理完才发现，这九个工具有一条共同的暗线：<strong>它们都把选择权和所有权还给了使用者</strong>——文件不上传、代码复制进你自己的仓库、参数随便改。这大概就是开源最迷人的地方：它不只是"免费"，更是"自由"。</p>
+
+    <p>如果你也在囤工具，我的三条小心得：</p>
+
+    <ol>
+        <li><strong>别囤，先用起来。</strong> 收藏夹里的 100 个仓库不如真正跑起来的 1 个。</li>
+        <li><strong>先读 README 再看 License。</strong> 尤其商用时，Commons Clause 这类条款要看清楚。</li>
+        <li><strong>用好了顺手点个 Star。</strong> 那是开发者继续维护下去的动力。</li>
+    </ol>
+
+    <p><strong>善假于物，而不是困于物。</strong> 工具的价值，终究在于你用它做出了什么。🛠️</p>
+
+    <hr class="divider">
+
+    <h2>📎 相关资源</h2>
+
+    <ul>
+        <li><a href="https://github.com/KnifeLemon/Filee" target="_blank">Filee · 本地格式转换</a></li>
+        <li><a href="https://github.com/ocsjs/ocs-desktop" target="_blank">OCS Desktop · 浏览器桌面端</a></li>
+        <li><a href="https://github.com/localsend/localsend" target="_blank">LocalSend · 跨平台文件互传</a></li>
+        <li><a href="https://github.com/motiondivision/motion" target="_blank">Motion · 动画库（原 Framer Motion）</a></li>
+        <li><a href="https://github.com/DavidHDev/react-bits" target="_blank">React Bits · 动效组件库</a></li>
+        <li><a href="https://uiverse.io/" target="_blank">Uiverse · 开源 UI 元素库</a></li>
+        <li><a href="https://ui.aceternity.com/" target="_blank">Aceternity UI · Tailwind 动画组件</a></li>
+        <li><a href="https://ui.shadcn.com/" target="_blank">shadcn/ui · 组件集合</a></li>
+        <li><a href="https://github.com/lucide-icons/lucide" target="_blank">Lucide · 开源图标库</a></li>
+    </ul>
+
+    <div class="footer-note">
+        <p>💡 本文写于 2026 年 10 月 11 日 · 工具会更新，链接以官方仓库为准 · 有更好的宝藏欢迎评论区交流 🙌</p>
+    </div>
+
+</div>
+
+</body>
+</html>
