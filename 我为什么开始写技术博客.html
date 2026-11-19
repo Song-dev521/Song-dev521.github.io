@@ -5,195 +5,173 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我为什么开始写技术博客？</title>
     <style>
-        /* ===== 全局样式 ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        body {
-            font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-            background: #f5f7fa;
-            color: #1e293b;
-            line-height: 1.8;
-            padding: 40px 20px;
-        }
+/* ============================================================
+   Article reading view — same design language as the cover,
+   different job: built for reading, not browsing.
+   ============================================================ */
+:root{
+  --bg:#0B0B0E; --surface:#141419; --surface-2:#1A1A21;
+  --border:#262630; --border-hi:#3A3A46;
+  --text:#F4F4F7; --text-muted:#9A9AA6; --text-faint:#63636F;
+  --accent:#FF6A45; --accent-2:#9A7CFF;
+  --accent-soft:rgba(255,106,69,.11);
+  --display:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --maxw:760px; --pad-x:clamp(22px,6.5vw,88px);
+  --dur:240ms; --ease:cubic-bezier(.22,1,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:var(--display);font-size:16px;line-height:1.85;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(55% 42% at 85% -5%,rgba(154,124,255,.09),transparent 60%),
+    radial-gradient(45% 38% at 5% 12%,rgba(255,106,69,.06),transparent 60%);}
+.grain{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
-        .container {
-            max-width: 820px;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 48px 56px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-        }
+/* ---- shared top nav: identical language to the cover ---- */
+.site-nav{position:relative;z-index:2;
+  width:min(100% - (var(--pad-x)*2),var(--maxw));margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:clamp(20px,3vw,30px) 0;border-bottom:1px solid var(--border);}
+.brand{display:flex;align-items:center;gap:12px;}
+.brand-mark{width:32px;height:32px;border-radius:9px;flex:none;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  display:grid;place-items:center;font-weight:800;font-size:.95rem;color:#0B0B0E;
+  box-shadow:0 0 22px -6px rgba(255,106,69,.5);}
+.brand-name{font-weight:700;letter-spacing:-.02em;font-size:1rem;}
+.brand-name span{color:var(--text-faint);font-weight:400;}
+.nav-links{display:flex;align-items:center;gap:24px;}
+.nav-link{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--text-muted);display:inline-flex;gap:6px;
+  align-items:center;border:0!important;transition:color var(--dur) var(--ease);}
+.nav-link:hover{color:var(--text);}
+.nav-link .ext{color:var(--accent);}
+.nav-link.back:hover{color:var(--accent);}
 
-        /* ===== 头部 ===== */
-        .header {
-            text-align: center;
-            border-bottom: 2px solid #eef2f6;
-            padding-bottom: 28px;
-            margin-bottom: 32px;
-        }
+.container{position:relative;z-index:1;
+  width:min(100% - (var(--pad-x)*2),var(--maxw));margin:0 auto;
+  padding:clamp(40px,6vw,64px) 0 88px;background:transparent;}
 
-        .header h1 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #0b2b4a;
-            letter-spacing: 0.5px;
-        }
+/* ---- article head ---- */
+.header{text-align:left;border-bottom:1px solid var(--border);
+  padding-bottom:26px;margin-bottom:34px;}
+h1,.header h1{font-size:clamp(1.9rem,4.6vw,2.85rem);font-weight:800;
+  letter-spacing:-.035em;line-height:1.35;color:var(--text);margin:0 0 14px;}
+.meta,.header .meta{font-family:var(--mono);font-size:.78rem;
+  color:var(--text-faint);display:flex;flex-wrap:wrap;gap:8px 18px;
+  align-items:center;margin:0;}
+.meta span,.header .meta span{margin:0;}
+.badge,.tag,.meta .tag,.meta .badge{display:inline-block;
+  font-family:var(--mono);font-size:.7rem;color:var(--accent);
+  background:var(--accent-soft);border:1px solid rgba(255,106,69,.26);
+  padding:4px 12px;border-radius:999px;font-weight:500;letter-spacing:.03em;}
+.badge.green{color:var(--accent-2);background:rgba(154,124,255,.12);
+  border-color:rgba(154,124,255,.28);}
 
-        .header .meta {
-            margin-top: 12px;
-            color: #64748b;
-            font-size: 14px;
-        }
+/* ---- headings ---- */
+h2{font-size:clamp(1.28rem,2.6vw,1.6rem);font-weight:700;letter-spacing:-.02em;
+  color:var(--text);margin:48px 0 18px;padding-left:16px;
+  border-left:3px solid var(--accent);line-height:1.4;}
+h3{font-size:1.12rem;font-weight:650;color:var(--text);margin:32px 0 12px;line-height:1.5;}
 
-        .header .meta span {
-            margin: 0 12px;
-        }
+/* ---- body copy ---- */
+p{margin:0 0 18px;color:var(--text-muted);}
+strong{color:var(--text);font-weight:650;}
+ul,ol{margin:14px 0 22px;padding-left:24px;color:var(--text-muted);}
+li{margin-bottom:10px;}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;
+  transition:border-color var(--dur) var(--ease),color var(--dur) var(--ease);}
+a:hover{color:var(--accent-2);border-bottom-color:currentColor;}
 
-        .badge {
-            display: inline-block;
-            background: #dbeafe;
-            color: #1d4ed8;
-            font-size: 13px;
-            font-weight: 600;
-            padding: 2px 14px;
-            border-radius: 20px;
-            margin-top: 10px;
-        }
+/* ---- quote / callout ---- */
+blockquote,.quote,.quote-box{background:var(--surface);
+  border:1px solid var(--border);border-left:3px solid var(--accent);
+  border-radius:0 12px 12px 0;padding:18px 22px;margin:24px 0;
+  color:var(--text-muted);font-style:normal;}
+blockquote p{margin:0;}
 
-        .badge.green {
-            background: #dcfce7;
-            color: #16a34a;
-        }
+/* ---- cards / grids ---- */
+.grid-2,.grid-3{display:grid;gap:14px;margin:20px 0;}
+.grid-2{grid-template-columns:repeat(2,1fr);}
+.grid-3{grid-template-columns:repeat(3,1fr);}
+.card{background:var(--surface-2);border:1px solid var(--border);
+  border-radius:14px;padding:18px 20px;text-align:left;
+  transition:border-color var(--dur) var(--ease),transform var(--dur) var(--ease);}
+.card:hover{border-color:var(--border-hi);transform:translateY(-2px);}
+.card .icon{font-size:1.6rem;margin-bottom:6px;display:block;}
+.card .label{font-size:.9rem;font-weight:650;color:var(--text);}
+.card .desc{font-size:.8rem;color:var(--text-muted);margin-top:4px;}
+.card .num{font-size:1.9rem;font-weight:800;letter-spacing:-.04em;line-height:1.2;
+  background:linear-gradient(100deg,var(--accent),var(--accent-2));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  display:block;margin-bottom:6px;}
+/* neutralise old light inline colors in the 大创 card grid for the dark surface */
+.card div[style*="color"]{color:var(--text-muted)!important;}
+.card div[style*="color:#1e293b"]{color:var(--text)!important;}
+.card div[style*="color: #1e293b"]{color:var(--text)!important;}
 
-        /* ===== 正文 ===== */
-        h2 {
-            font-size: 20px;
-            font-weight: 700;
-            color: #0b2b4a;
-            margin: 36px 0 14px 0;
-            padding-left: 14px;
-            border-left: 4px solid #2563eb;
-        }
+/* ---- code ---- */
+pre{background:#101016;border:1px solid var(--border);color:#cdd6f4;
+  padding:20px 22px;border-radius:12px;overflow-x:auto;font-size:13.5px;
+  font-family:var(--mono);line-height:1.7;margin:20px 0;}
+pre .comment{color:#6c7086;} pre .keyword{color:#cba6f7;}
+pre .string{color:#a6e3a1;}  pre .variable{color:#f9e2af;}
+code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);
+  border:1px solid var(--border);padding:2px 7px;border-radius:6px;color:var(--accent);}
+pre code{background:transparent;border:0;color:inherit;padding:0;font-size:inherit;}
 
-        h3 {
-            font-size: 17px;
-            font-weight: 600;
-            color: #1e293b;
-            margin: 24px 0 10px 0;
-        }
+/* ---- table ---- */
+table{width:100%;border-collapse:collapse;margin:22px 0;font-size:.88rem;}
+th,td{padding:12px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--surface-2);color:var(--text);font-weight:650;}
+td{color:var(--text-muted);}
 
-        p {
-            margin-bottom: 14px;
-            color: #334155;
-        }
+/* ---- dividers / footer ---- */
+hr,.divider{border:0;border-top:1px solid var(--border);margin:44px 0 28px;}
+.footer-note{background:var(--surface);border:1px solid var(--border);
+  padding:18px 22px;border-radius:12px;margin-top:40px;
+  text-align:center;color:var(--text-faint);font-size:.84rem;}
+.footer-note p{margin:0;}
+.footer{text-align:center;color:var(--text-faint);font-size:.8rem;margin-top:16px;}
+.end-sign{text-align:center;color:var(--accent);font-size:1.3rem;
+  letter-spacing:.5em;margin-top:20px;}
 
-        ul, ol {
-            margin: 10px 0 16px 24px;
-            color: #334155;
-        }
+@media(max-width:720px){
+  .grid-2,.grid-3{grid-template-columns:1fr;}
+  .nav-links{gap:14px;}
+  h1,.header h1{font-size:1.75rem;}
+  pre{font-size:12px;padding:14px 16px;}
+  table{font-size:.78rem;}
+  th,td{padding:9px 10px;}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;scroll-behavior:auto!important;}
+}
 
-        li {
-            margin-bottom: 8px;
-        }
-
-        a {
-            color: #2563eb;
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: 0.2s;
-        }
-
-        a:hover {
-            border-bottom-color: #2563eb;
-        }
-
-        /* ===== 引用块 ===== */
-        .quote-box {
-            background: #f1f5f9;
-            border-left: 4px solid #2563eb;
-            padding: 14px 20px;
-            border-radius: 6px;
-            margin: 20px 0;
-            font-style: italic;
-            color: #1e293b;
-        }
-
-        /* ===== 卡片 ===== */
-        .grid-3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 16px;
-            margin: 16px 0;
-        }
-
-        .card {
-            background: #f8fafc;
-            border-radius: 10px;
-            padding: 16px 18px;
-            border: 1px solid #e9edf2;
-            text-align: center;
-        }
-
-        .card .icon {
-            font-size: 28px;
-            margin-bottom: 6px;
-            display: block;
-        }
-
-        .card .label {
-            font-size: 14px;
-            font-weight: 600;
-            color: #1e293b;
-        }
-
-        .card .desc {
-            font-size: 13px;
-            color: #64748b;
-            margin-top: 4px;
-        }
-
-        @media (max-width: 600px) {
-            .grid-3 {
-                grid-template-columns: 1fr;
-            }
-            .container {
-                padding: 24px 18px;
-            }
-            .header h1 {
-                font-size: 22px;
-            }
-        }
-
-        /* ===== 分隔线 ===== */
-        hr {
-            border: none;
-            border-top: 2px dashed #e2e8f0;
-            margin: 40px 0 24px 0;
-        }
-
-        .footer {
-            text-align: center;
-            color: #94a3b8;
-            font-size: 13px;
-            margin-top: 12px;
-        }
-
-        /* ===== 文章结束标志 ===== */
-        .end-sign {
-            text-align: center;
-            color: #94a3b8;
-            font-size: 28px;
-            letter-spacing: 8px;
-            margin-top: 16px;
-        }
-    </style>
+</style>
 </head>
 <body>
+<div class="ambient" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<nav class="site-nav">
+  <a class="brand" href="index.html" aria-label="返回博客首页">
+    <span class="brand-mark">S</span>
+    <span class="brand-name">song<span>.dev</span></span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link back" href="index.html">← 返回首页</a>
+    <a class="nav-link" href="https://github.com/song-dev521" target="_blank" rel="noopener">GitHub <span class="ext">↗</span></a>
+  </div>
+</nav>
+
 <div class="container">
 
     <!-- ========== 头部 ========== -->

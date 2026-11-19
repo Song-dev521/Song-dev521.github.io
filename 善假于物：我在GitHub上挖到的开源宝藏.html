@@ -5,173 +5,173 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>善假于物：我在 GitHub 上挖到的开源宝藏</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: #fafafa;
-            color: #222;
-            padding: 40px 20px;
-            line-height: 1.8;
-        }
-        .container {
-            max-width: 780px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 50px 60px;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-        }
-        h1 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1a1a2e;
-            margin-bottom: 8px;
-            line-height: 1.4;
-        }
-        .meta {
-            color: #8b8b8b;
-            font-size: 14px;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
-        .meta span {
-            margin-right: 16px;
-        }
-        .meta .tag {
-            display: inline-block;
-            background: #eef2ff;
-            color: #4f6ef7;
-            font-size: 12px;
-            padding: 2px 12px;
-            border-radius: 20px;
-            font-weight: 500;
-        }
-        h2 {
-            font-size: 20px;
-            font-weight: 600;
-            color: #1a1a2e;
-            margin-top: 32px;
-            margin-bottom: 12px;
-            padding-bottom: 4px;
-        }
-        h3 {
-            font-size: 17px;
-            font-weight: 600;
-            color: #2d2d44;
-            margin-top: 24px;
-            margin-bottom: 8px;
-        }
-        p {
-            margin-bottom: 16px;
-            color: #333;
-        }
-        blockquote {
-            background: #f7f8fc;
-            border-left: 4px solid #4f6ef7;
-            padding: 16px 20px;
-            margin: 20px 0;
-            border-radius: 4px;
-            font-style: italic;
-            color: #555;
-        }
-        blockquote p {
-            margin-bottom: 0;
-        }
-        pre {
-            background: #1e1e2e;
-            color: #cdd6f4;
-            padding: 18px 22px;
-            border-radius: 8px;
-            overflow-x: auto;
-            font-size: 14px;
-            font-family: "Fira Code", "JetBrains Mono", monospace;
-            line-height: 1.6;
-            margin: 16px 0;
-        }
-        pre .comment {
-            color: #6c7086;
-        }
-        pre .keyword {
-            color: #cba6f7;
-        }
-        pre .string {
-            color: #a6e3a1;
-        }
-        pre .variable {
-            color: #f9e2af;
-        }
-        code {
-            font-family: "Fira Code", "JetBrains Mono", monospace;
-            font-size: 14px;
-            background: #f0f0f5;
-            padding: 2px 8px;
-            border-radius: 4px;
-            color: #d63384;
-        }
-        pre code {
-            background: transparent;
-            color: inherit;
-            padding: 0;
-        }
-        ul, ol {
-            margin: 12px 0 16px 24px;
-        }
-        li {
-            margin-bottom: 6px;
-            color: #333;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 16px 0;
-            font-size: 14px;
-        }
-        table th {
-            background: #f0f2f5;
-            text-align: left;
-            padding: 10px 14px;
-            border: 1px solid #e8e8ea;
-            font-weight: 600;
-        }
-        table td {
-            padding: 10px 14px;
-            border: 1px solid #e8e8ea;
-        }
-        .divider {
-            border: none;
-            border-top: 2px solid #f0f2f5;
-            margin: 32px 0;
-        }
-        .footer-note {
-            background: #f7f8fc;
-            padding: 20px 24px;
-            border-radius: 8px;
-            margin-top: 32px;
-            text-align: center;
-            color: #6c7086;
-            font-size: 14px;
-        }
-        .footer-note a {
-            color: #4f6ef7;
-            text-decoration: none;
-        }
-        .footer-note a:hover {
-            text-decoration: underline;
-        }
-        @media (max-width: 640px) {
-            .container { padding: 24px 20px; }
-            h1 { font-size: 22px; }
-            pre { font-size: 13px; padding: 14px 16px; }
-            .meta .tag { font-size: 11px; }
-        }
-    </style>
+
+/* ============================================================
+   Article reading view — same design language as the cover,
+   different job: built for reading, not browsing.
+   ============================================================ */
+:root{
+  --bg:#0B0B0E; --surface:#141419; --surface-2:#1A1A21;
+  --border:#262630; --border-hi:#3A3A46;
+  --text:#F4F4F7; --text-muted:#9A9AA6; --text-faint:#63636F;
+  --accent:#FF6A45; --accent-2:#9A7CFF;
+  --accent-soft:rgba(255,106,69,.11);
+  --display:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --maxw:760px; --pad-x:clamp(22px,6.5vw,88px);
+  --dur:240ms; --ease:cubic-bezier(.22,1,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:var(--display);font-size:16px;line-height:1.85;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(55% 42% at 85% -5%,rgba(154,124,255,.09),transparent 60%),
+    radial-gradient(45% 38% at 5% 12%,rgba(255,106,69,.06),transparent 60%);}
+.grain{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* ---- shared top nav: identical language to the cover ---- */
+.site-nav{position:relative;z-index:2;
+  width:min(100% - (var(--pad-x)*2),var(--maxw));margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:clamp(20px,3vw,30px) 0;border-bottom:1px solid var(--border);}
+.brand{display:flex;align-items:center;gap:12px;}
+.brand-mark{width:32px;height:32px;border-radius:9px;flex:none;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  display:grid;place-items:center;font-weight:800;font-size:.95rem;color:#0B0B0E;
+  box-shadow:0 0 22px -6px rgba(255,106,69,.5);}
+.brand-name{font-weight:700;letter-spacing:-.02em;font-size:1rem;}
+.brand-name span{color:var(--text-faint);font-weight:400;}
+.nav-links{display:flex;align-items:center;gap:24px;}
+.nav-link{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--text-muted);display:inline-flex;gap:6px;
+  align-items:center;border:0!important;transition:color var(--dur) var(--ease);}
+.nav-link:hover{color:var(--text);}
+.nav-link .ext{color:var(--accent);}
+.nav-link.back:hover{color:var(--accent);}
+
+.container{position:relative;z-index:1;
+  width:min(100% - (var(--pad-x)*2),var(--maxw));margin:0 auto;
+  padding:clamp(40px,6vw,64px) 0 88px;background:transparent;}
+
+/* ---- article head ---- */
+.header{text-align:left;border-bottom:1px solid var(--border);
+  padding-bottom:26px;margin-bottom:34px;}
+h1,.header h1{font-size:clamp(1.9rem,4.6vw,2.85rem);font-weight:800;
+  letter-spacing:-.035em;line-height:1.35;color:var(--text);margin:0 0 14px;}
+.meta,.header .meta{font-family:var(--mono);font-size:.78rem;
+  color:var(--text-faint);display:flex;flex-wrap:wrap;gap:8px 18px;
+  align-items:center;margin:0;}
+.meta span,.header .meta span{margin:0;}
+.badge,.tag,.meta .tag,.meta .badge{display:inline-block;
+  font-family:var(--mono);font-size:.7rem;color:var(--accent);
+  background:var(--accent-soft);border:1px solid rgba(255,106,69,.26);
+  padding:4px 12px;border-radius:999px;font-weight:500;letter-spacing:.03em;}
+.badge.green{color:var(--accent-2);background:rgba(154,124,255,.12);
+  border-color:rgba(154,124,255,.28);}
+
+/* ---- headings ---- */
+h2{font-size:clamp(1.28rem,2.6vw,1.6rem);font-weight:700;letter-spacing:-.02em;
+  color:var(--text);margin:48px 0 18px;padding-left:16px;
+  border-left:3px solid var(--accent);line-height:1.4;}
+h3{font-size:1.12rem;font-weight:650;color:var(--text);margin:32px 0 12px;line-height:1.5;}
+
+/* ---- body copy ---- */
+p{margin:0 0 18px;color:var(--text-muted);}
+strong{color:var(--text);font-weight:650;}
+ul,ol{margin:14px 0 22px;padding-left:24px;color:var(--text-muted);}
+li{margin-bottom:10px;}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;
+  transition:border-color var(--dur) var(--ease),color var(--dur) var(--ease);}
+a:hover{color:var(--accent-2);border-bottom-color:currentColor;}
+
+/* ---- quote / callout ---- */
+blockquote,.quote,.quote-box{background:var(--surface);
+  border:1px solid var(--border);border-left:3px solid var(--accent);
+  border-radius:0 12px 12px 0;padding:18px 22px;margin:24px 0;
+  color:var(--text-muted);font-style:normal;}
+blockquote p{margin:0;}
+
+/* ---- cards / grids ---- */
+.grid-2,.grid-3{display:grid;gap:14px;margin:20px 0;}
+.grid-2{grid-template-columns:repeat(2,1fr);}
+.grid-3{grid-template-columns:repeat(3,1fr);}
+.card{background:var(--surface-2);border:1px solid var(--border);
+  border-radius:14px;padding:18px 20px;text-align:left;
+  transition:border-color var(--dur) var(--ease),transform var(--dur) var(--ease);}
+.card:hover{border-color:var(--border-hi);transform:translateY(-2px);}
+.card .icon{font-size:1.6rem;margin-bottom:6px;display:block;}
+.card .label{font-size:.9rem;font-weight:650;color:var(--text);}
+.card .desc{font-size:.8rem;color:var(--text-muted);margin-top:4px;}
+.card .num{font-size:1.9rem;font-weight:800;letter-spacing:-.04em;line-height:1.2;
+  background:linear-gradient(100deg,var(--accent),var(--accent-2));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  display:block;margin-bottom:6px;}
+/* neutralise old light inline colors in the 大创 card grid for the dark surface */
+.card div[style*="color"]{color:var(--text-muted)!important;}
+.card div[style*="color:#1e293b"]{color:var(--text)!important;}
+.card div[style*="color: #1e293b"]{color:var(--text)!important;}
+
+/* ---- code ---- */
+pre{background:#101016;border:1px solid var(--border);color:#cdd6f4;
+  padding:20px 22px;border-radius:12px;overflow-x:auto;font-size:13.5px;
+  font-family:var(--mono);line-height:1.7;margin:20px 0;}
+pre .comment{color:#6c7086;} pre .keyword{color:#cba6f7;}
+pre .string{color:#a6e3a1;}  pre .variable{color:#f9e2af;}
+code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);
+  border:1px solid var(--border);padding:2px 7px;border-radius:6px;color:var(--accent);}
+pre code{background:transparent;border:0;color:inherit;padding:0;font-size:inherit;}
+
+/* ---- table ---- */
+table{width:100%;border-collapse:collapse;margin:22px 0;font-size:.88rem;}
+th,td{padding:12px 14px;border:1px solid var(--border);text-align:left;}
+th{background:var(--surface-2);color:var(--text);font-weight:650;}
+td{color:var(--text-muted);}
+
+/* ---- dividers / footer ---- */
+hr,.divider{border:0;border-top:1px solid var(--border);margin:44px 0 28px;}
+.footer-note{background:var(--surface);border:1px solid var(--border);
+  padding:18px 22px;border-radius:12px;margin-top:40px;
+  text-align:center;color:var(--text-faint);font-size:.84rem;}
+.footer-note p{margin:0;}
+.footer{text-align:center;color:var(--text-faint);font-size:.8rem;margin-top:16px;}
+.end-sign{text-align:center;color:var(--accent);font-size:1.3rem;
+  letter-spacing:.5em;margin-top:20px;}
+
+@media(max-width:720px){
+  .grid-2,.grid-3{grid-template-columns:1fr;}
+  .nav-links{gap:14px;}
+  h1,.header h1{font-size:1.75rem;}
+  pre{font-size:12px;padding:14px 16px;}
+  table{font-size:.78rem;}
+  th,td{padding:9px 10px;}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;scroll-behavior:auto!important;}
+}
+
+</style>
 </head>
 <body>
+<div class="ambient" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<nav class="site-nav">
+  <a class="brand" href="index.html" aria-label="返回博客首页">
+    <span class="brand-mark">S</span>
+    <span class="brand-name">song<span>.dev</span></span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link back" href="index.html">← 返回首页</a>
+    <a class="nav-link" href="https://github.com/song-dev521" target="_blank" rel="noopener">GitHub <span class="ext">↗</span></a>
+  </div>
+</nav>
+
 
 <div class="container">
 
