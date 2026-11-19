@@ -1,16 +1,303 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>个人博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人博客 · Song</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #fafafa;
+            color: #222;
+            padding: 48px 20px;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        /* 头部卡片 */
+        .hero {
+            background: linear-gradient(120deg, #1a1a2e 0%, #2c2f57 55%, #4f6ef7 140%);
+            color: #fff;
+            padding: 44px 48px 40px;
+            border-radius: 14px;
+            box-shadow: 0 8px 28px rgba(31, 38, 94, 0.18);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::after {
+            content: "";
+            position: absolute;
+            right: -60px;
+            top: -70px;
+            width: 230px;
+            height: 230px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+        }
+        .hero h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+        .hero .subtitle {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.78);
+            position: relative;
+            z-index: 1;
+        }
+        .hero .stats {
+            margin-top: 22px;
+            display: flex;
+            gap: 26px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.85);
+            position: relative;
+            z-index: 1;
+        }
+        .hero .stats strong {
+            font-size: 20px;
+            color: #fff;
+            margin-right: 5px;
+        }
+
+        /* 列表区标题 */
+        .section-title {
+            margin: 34px 4px 14px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #8b8b8b;
+            letter-spacing: 2px;
+        }
+        .section-title span {
+            color: #4f6ef7;
+        }
+
+        /* 文章列表 */
+        .post-list {
+            list-style: none;
+            margin: 0;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+        }
+        .post-list li {
+            margin: 0;
+            border-bottom: 1px solid #f0f0f3;
+        }
+        .post-list li:last-child {
+            border-bottom: none;
+        }
+        .post-list a {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 22px 28px;
+            text-decoration: none;
+            color: inherit;
+            transition: background 0.2s ease, padding-left 0.2s ease;
+            position: relative;
+        }
+        .post-list a::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #4f6ef7;
+            transform: scaleY(0);
+            transition: transform 0.2s ease;
+        }
+        .post-list a:hover {
+            background: #f8f9ff;
+            padding-left: 34px;
+        }
+        .post-list a:hover::before {
+            transform: scaleY(1);
+        }
+        .num {
+            flex: 0 0 auto;
+            font-size: 13px;
+            font-weight: 700;
+            color: #c3c7d6;
+            width: 26px;
+            font-family: "Fira Code", "JetBrains Mono", monospace;
+            transition: color 0.2s ease;
+        }
+        .post-list a:hover .num {
+            color: #4f6ef7;
+        }
+        .post-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .post-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-bottom: 4px;
+            transition: color 0.2s ease;
+        }
+        .post-list a:hover .post-title {
+            color: #4f6ef7;
+        }
+        .post-desc {
+            font-size: 13px;
+            color: #8b8b8b;
+            line-height: 1.6;
+        }
+        .post-meta {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .post-date {
+            font-size: 13px;
+            color: #a3a8bb;
+            white-space: nowrap;
+            font-family: "Fira Code", "JetBrains Mono", monospace;
+        }
+        .arrow {
+            color: #c3c7d6;
+            font-size: 18px;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+        .post-list a:hover .arrow {
+            transform: translateX(4px);
+            color: #4f6ef7;
+        }
+        .tag {
+            display: inline-block;
+            background: #eef2ff;
+            color: #4f6ef7;
+            font-size: 11px;
+            padding: 2px 9px;
+            border-radius: 20px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        .tag.green { background: #eafaf1; color: #2f9e6e; }
+        .tag.orange { background: #fff4e8; color: #d98324; }
+        .tag.purple { background: #f3eefe; color: #7c5cd6; }
+
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            color: #a3a8bb;
+            font-size: 13px;
+            margin: 34px 0 8px;
+        }
+        .footer .mark {
+            color: #4f6ef7;
+            letter-spacing: 6px;
+            margin-top: 6px;
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 20px 14px; }
+            .hero { padding: 32px 26px; }
+            .hero h1 { font-size: 26px; }
+            .post-list a { padding: 18px 18px; gap: 12px; }
+            .post-list a:hover { padding-left: 18px; }
+            .post-meta { flex-direction: column; gap: 6px; align-items: flex-end; }
+            .post-desc { display: none; }
+            .num { width: 20px; }
+        }
+    </style>
 </head>
 <body>
-    <h1>个人博客</h1>
-    <ul>
-        <li><a href="我为什么开始写技术博客.html">我为什么开始写技术博客？</a>（2026-07-17）</li>
-        <li><a href="大创项目后端开发总结.html">大创项目后端开发总结</a>（2026-07-18）</li>
-        <li><a href="一次GitHub推送被拒的经历：我的阿里云密钥是如何暴露的.html">一次GitHub推送被拒的经历：我的阿里云密钥是如何暴露的</a>（2026-08-25）</li>
-        <li><a href="善假于物：我在GitHub上挖到的开源宝藏.html">善假于物：我在 GitHub 上挖到的开源宝藏</a>（2026-10-11）</li>
+
+<div class="container">
+
+    <header class="hero">
+        <h1>个人博客</h1>
+        <p class="subtitle">写点代码，记点笔记。一个开发者的成长存档。</p>
+        <div class="stats">
+            <span><strong>4</strong>篇随笔</span>
+            <span><strong>2026</strong>年开始记录</span>
+        </div>
+    </header>
+
+    <div class="section-title">最近 <span>文章</span></div>
+
+    <ul class="post-list">
+        <li>
+            <a href="我为什么开始写技术博客.html">
+                <span class="num">01</span>
+                <div class="post-info">
+                    <div class="post-title">我为什么开始写技术博客？</div>
+                    <div class="post-desc">关于费曼学习法、个人品牌与对抗遗忘的一个开始。</div>
+                </div>
+                <div class="post-meta">
+                    <span class="tag green">成长</span>
+                    <span class="post-date">2026-07-17</span>
+                    <span class="arrow">›</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="大创项目后端开发总结.html">
+                <span class="num">02</span>
+                <div class="post-info">
+                    <div class="post-title">大创项目后端开发总结</div>
+                    <div class="post-desc">13 个接口、6 张表、一个 AI 模块，从零到一的全过程复盘。</div>
+                </div>
+                <div class="post-meta">
+                    <span class="tag">项目</span>
+                    <span class="post-date">2026-07-18</span>
+                    <span class="arrow">›</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="一次GitHub推送被拒的经历：我的阿里云密钥是如何暴露的.html">
+                <span class="num">03</span>
+                <div class="post-info">
+                    <div class="post-title">一次 GitHub 推送被拒的经历：我的阿里云密钥是如何暴露的</div>
+                    <div class="post-desc">一次真实的踩坑记录，关于密钥泄露、Git 历史清理与环境变量。</div>
+                </div>
+                <div class="post-meta">
+                    <span class="tag orange">安全</span>
+                    <span class="post-date">2026-08-25</span>
+                    <span class="arrow">›</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="善假于物：我在GitHub上挖到的开源宝藏.html">
+                <span class="num">04</span>
+                <div class="post-info">
+                    <div class="post-title">善假于物：我在 GitHub 上挖到的开源宝藏</div>
+                    <div class="post-desc">九个免费、开源、真香的宝藏项目：从效率工具到前端美学。</div>
+                </div>
+                <div class="post-meta">
+                    <span class="tag purple">开源</span>
+                    <span class="post-date">2026-10-11</span>
+                    <span class="arrow">›</span>
+                </div>
+            </a>
+        </li>
     </ul>
+
+    <div class="footer">
+        <p>© 2026 个人博客 · 记录每一步成长</p>
+        <div class="mark">✦ ✦ ✦</div>
+    </div>
+
+</div>
+
 </body>
 </html>
