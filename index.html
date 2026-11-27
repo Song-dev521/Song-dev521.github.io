@@ -1,298 +1,428 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Song 的个人博客——写点代码，记点笔记。关于开发、踩坑与成长的诚实记录。">
-<title>个人博客 — Notes on code &amp; craft</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="dark light" />
+<title>个人博客 — song.dev</title>
+<meta name="description" content="写点代码，记点笔记。song.dev 的技术笔记、项目复盘与开源发现。" />
+
 <style>
 /* ============================================================
-   Design tokens — dark, restrained, high-craft
-   Override a token here and the whole page re-themes coherently.
+   设计令牌 — 编辑感 / 低噪音方向
+   暖白纸张为唯一主题，页面不依赖脚本
    ============================================================ */
-:root{
-  --bg:          #0B0B0E;
-  --surface:     #141419;
-  --surface-2:   #1A1A21;
-  --border:      #262630;
-  --border-hi:   #3A3A46;
-  --text:        #F4F4F7;
-  --text-muted:  #9A9AA6;
-  --text-faint:  #63636F;
-  --accent:      #FF6A45;
-  --accent-2:    #9A7CFF;
-  --accent-soft: rgba(255,106,69,.11);
+:root {
+  /* 原色 */
+  --gray-0:   #FFFFFF;
+  --gray-50:  #F7F6F3;
+  --gray-100: #EDEBE7;
+  --gray-200: #D8D4CD;
+  --gray-300: #B4AFA6;
+  --gray-400: #8E8981;
+  --gray-500: #6B665F;
+  --gray-600: #4A4641;
+  --gray-700: #35322E;
+  --gray-800: #24221F;
+  --gray-900: #171614;
+  --gray-950: #101010;
 
-  --display: "Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",
-             "PingFang SC","Microsoft YaHei",sans-serif;
-  --serif:   Georgia,"Times New Roman","Songti SC","STSong",serif;
-  --mono:    "JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --coral-500: #E8654A;
+  --coral-600: #C84C33;
 
-  --fs-title:  clamp(2.6rem, 6vw, 4.4rem);
-  --fs-post:   clamp(1.2rem, 2vw, 1.5rem);
-  --fs-lede:   clamp(.98rem, 1.4vw, 1.12rem);
-  --fs-body:   1rem;
-  --fs-sm:     .88rem;
-  --fs-xs:     .74rem;
-  --fs-2xs:    .64rem;
+  /* 尺寸 */
+  --size-1: 4px;  --size-2: 8px;  --size-3: 12px; --size-4: 16px;
+  --size-5: 20px; --size-6: 24px; --size-8: 32px; --size-10: 40px;
+  --size-12: 48px; --size-16: 64px; --size-20: 80px;
 
-  --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-6:24px; --sp-8:32px;
-  --sp-10:40px; --sp-12:48px; --sp-16:64px; --sp-24:96px; --sp-28:112px;
-  --pad-x: clamp(22px, 6.5vw, 88px);
-  --maxw: 1000px;
+  /* 语义色 — 浅色（暖白纸张） */
+  --bg:            var(--gray-0);
+  --bg-subtle:     var(--gray-50);
+  --surface:       var(--gray-50);
+  --surface-2:     var(--gray-100);
+  --border:        #E3DFD7;
+  --border-strong: #CFC9BF;
+  --text:          #1A1917;
+  --text-muted:    #6E6A62;
+  --text-faint:    #77726A;
+  --accent:          #B4432A;
+  --accent-hover:    #93351F;
+  --accent-subtle: rgba(180, 67, 42, 0.08);
+  --focus-ring: #B4432A;
 
-  --r-sm:10px; --r-md:14px; --r-lg:20px; --r-pill:999px;
+  /* 空间 */
+  --space-1: var(--size-1); --space-2: var(--size-2);
+  --space-3: var(--size-3); --space-4: var(--size-4);
+  --space-5: var(--size-5); --space-6: var(--size-6);
+  --space-8: var(--size-8); --space-10: var(--size-10);
+  --space-12: var(--size-12); --space-16: var(--size-16);
+  --space-20: var(--size-20);
+  --container-max: 860px;
+  --container-pad: 1.25rem;
+  --section-y: clamp(3rem, 7vw, 5.5rem);
+  --measure: 62ch;
 
-  --dur: 240ms; --dur-slow: 540ms;
-  --ease: cubic-bezier(.22,1,.36,1);
+  /* 字体 */
+  --font-display: "Inter", system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-body:    "Inter", system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-serif:   Georgia, "Times New Roman", serif;
+  --font-mono:    ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --text-hero: clamp(2.25rem, 1.4rem + 3.6vw, 3.5rem);
+  --text-h2:   clamp(1.125rem, 1rem + 0.6vw, 1.375rem);
+  --text-h3:   1.0625rem;
+  --text-body: 1rem;
+  --text-sm:   0.875rem;
+  --text-xs:   0.75rem;
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-semibold: 600;
+  --leading-snug: 1.35;
+  --leading-normal: 1.7;
+  --tracking-display: -0.03em;
+  --tracking-label: 0.12em;
+
+  /* 动效 */
+  --dur-fast: 140ms;
+  --dur-base: 220ms;
+  --dur-slow: 420ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-nudge: 2px;
+  --motion-rise: 12px;
+  --nav-height: 64px;
+  --z-sticky: 200;
+
+  --radius-sm: 6px;
 }
 
-*,*::before,*::after{box-sizing:border-box;}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
-body{
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:var(--display);font-size:var(--fs-body);line-height:1.6;
-  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-  overflow-x:hidden;
+/* 基础 */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
-a{color:inherit;text-decoration:none;}
+h1, h2, h3 { margin: 0; font-family: var(--font-display); line-height: var(--leading-snug); text-wrap: balance; }
+p { margin: 0; text-wrap: pretty; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: var(--space-1); border-radius: var(--radius-sm); }
+::selection { background: var(--accent); color: var(--gray-0); }
 
-/* ambient light + grain — subtle depth, not decoration-for-its-own-sake */
-.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(55% 45% at 85% -5%, rgba(154,124,255,.10), transparent 60%),
-    radial-gradient(45% 40% at 5% 22%, rgba(255,106,69,.07), transparent 60%);}
-.grain{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.04;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
-.page{position:relative;z-index:1;width:min(100% - (var(--pad-x)*2),var(--maxw));margin-inline:auto;}
-
-/* ----------------------------- nav ----------------------------- */
-.nav{display:flex;align-items:center;justify-content:space-between;
-  padding:clamp(20px,3vw,30px) 0;border-bottom:1px solid var(--border);}
-.brand{display:flex;align-items:center;gap:var(--sp-3);}
-.brand-mark{width:32px;height:32px;border-radius:9px;flex:none;
-  background:linear-gradient(135deg,var(--accent),var(--accent-2));
-  display:grid;place-items:center;font-weight:800;font-size:.95rem;color:#0B0B0E;
-  box-shadow:0 0 22px -6px rgba(255,106,69,.5);}
-.brand-name{font-weight:700;letter-spacing:-.02em;font-size:1rem;}
-.brand-name span{color:var(--text-faint);font-weight:400;}
-.nav-link{font-family:var(--mono);font-size:var(--fs-xs);
-  letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);
-  transition:color var(--dur) var(--ease);display:inline-flex;gap:6px;align-items:center;}
-.nav-link:hover{color:var(--text);}
-.nav-link .ext{color:var(--accent);}
-
-/* ----------------------------- hero ----------------------------- */
-.hero{padding:clamp(52px,8vw,88px) 0 clamp(44px,6vw,64px);}
-.eyebrow{display:flex;align-items:center;gap:var(--sp-3);
-  font-family:var(--mono);font-size:var(--fs-xs);letter-spacing:.18em;
-  text-transform:uppercase;color:var(--accent);margin-bottom:var(--sp-6);}
-.eyebrow::before{content:"";width:26px;height:1px;background:var(--accent);}
-.hero h1{
-  font-size:var(--fs-title);font-weight:800;letter-spacing:-.045em;
-  line-height:1.08;margin:0;
+.container {
+  width: min(100% - (var(--container-pad) * 2), var(--container-max));
+  margin-inline: auto;
 }
-.hero h1 .dot{
-  display:inline-block;width:.16em;height:.16em;border-radius:50%;
-  background:linear-gradient(135deg,var(--accent),var(--accent-2));
-  margin-left:.06em;vertical-align:baseline;
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
-.hero-sub{font-family:var(--serif);font-style:italic;
-  font-size:clamp(1rem,1.7vw,1.3rem);color:var(--text-muted);
-  margin:var(--sp-4) 0 0;}
-.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;
-  gap:var(--sp-8);margin-top:clamp(32px,5vw,48px);
-  padding-top:var(--sp-6);border-top:1px solid var(--border);}
-.hero-lede{max-width:50ch;color:var(--text-muted);
-  font-size:var(--fs-lede);line-height:1.85;margin:0;}
-.hero-lede strong{color:var(--text);font-weight:600;}
-.stats{display:flex;gap:var(--sp-10);flex:none;}
-.stat b{display:block;font-size:1.75rem;font-weight:800;letter-spacing:-.04em;line-height:1;}
-.stat span{display:block;margin-top:6px;font-family:var(--mono);
-  font-size:var(--fs-2xs);letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);}
-.stat:nth-child(2) b{
-  background:linear-gradient(100deg,var(--accent),var(--accent-2));
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-
-/* -------------------------- section head -------------------------- */
-.sec-head{display:flex;align-items:center;gap:var(--sp-4);margin-bottom:var(--sp-2);}
-.sec-head h2{font-family:var(--mono);font-size:var(--fs-xs);font-weight:500;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--text);margin:0;white-space:nowrap;}
-.sec-head h2 em{color:var(--accent);font-style:normal;}
-.sec-head::after{content:"";height:1px;background:var(--border);flex:1;}
-
-/* --------------------------- post list --------------------------- */
-/* uniform rows, straight down 01 → 04 — no featured outlier */
-.posts{margin-top:var(--sp-2);}
-.post{
-  display:grid;grid-template-columns:auto minmax(0,1fr) auto;
-  align-items:center;gap:clamp(var(--sp-4),3.5vw,var(--sp-10));
-  padding:clamp(20px,2.6vw,28px) var(--sp-3);
-  border-bottom:1px solid var(--border);position:relative;
-  transition:background var(--dur) var(--ease);
+.skip-link {
+  position: absolute; left: var(--space-4); top: calc(-1 * var(--space-16));
+  background: var(--accent); color: var(--gray-0); padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm); z-index: var(--z-sticky);
 }
-.post:first-child{border-top:1px solid var(--border);}
-.post:hover{background:var(--surface);}
-.post::before{content:"";position:absolute;left:0;top:16%;bottom:16%;width:2px;
-  border-radius:2px;background:var(--accent);transform:scaleY(0);
-  transform-origin:center;transition:transform var(--dur) var(--ease);}
-.post:hover::before{transform:scaleY(1);}
-.post-no{font-family:var(--mono);font-size:var(--fs-sm);color:var(--text-faint);
-  transition:color var(--dur) var(--ease);}
-.post:hover .post-no{color:var(--accent);}
-.post-body h3{font-size:var(--fs-post);font-weight:650;letter-spacing:-.02em;
-  margin:0 0 7px;line-height:1.4;transition:color var(--dur) var(--ease);}
-.post:hover .post-body h3{color:var(--accent);}
-.post-body p{margin:0;color:var(--text-muted);font-size:var(--fs-sm);line-height:1.65;}
-.post-meta{display:flex;align-items:center;gap:var(--sp-6);white-space:nowrap;}
-.tag{font-family:var(--mono);font-size:var(--fs-2xs);letter-spacing:.1em;
-  text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border);
-  border-radius:var(--r-pill);padding:5px 11px;transition:all var(--dur) var(--ease);}
-.post:hover .tag{color:var(--accent);border-color:var(--accent-soft);
-  background:var(--accent-soft);}
-.post-date{font-family:var(--mono);font-size:var(--fs-xs);color:var(--text-faint);}
-.post-arrow{font-size:1.25rem;color:var(--text-faint);line-height:1;
-  transition:transform var(--dur) var(--ease),color var(--dur) var(--ease);}
-.post:hover .post-arrow{transform:translateX(6px);color:var(--accent);}
+.skip-link:focus { top: var(--space-4); }
 
-/* ---------------------------- footer ---------------------------- */
-.foot{margin-top:var(--sp-28);padding:var(--sp-8) 0 var(--sp-12);
-  border-top:1px solid var(--border);display:flex;justify-content:space-between;
-  align-items:center;gap:var(--sp-4);font-family:var(--mono);font-size:var(--fs-xs);
-  color:var(--text-faint);letter-spacing:.04em;}
-.foot .mark{font-size:1rem;letter-spacing:.5em;
-  background:linear-gradient(100deg,var(--accent),var(--accent-2));
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-.foot a:hover{color:var(--accent);}
-
-/* ------------------------- entrance motion ------------------------- */
-.rise{opacity:0;transform:translateY(18px);animation:rise var(--dur-slow) var(--ease) forwards;}
-@keyframes rise{to{opacity:1;transform:none;}}
-.d1{animation-delay:50ms;} .d2{animation-delay:120ms;} .d3{animation-delay:190ms;}
-.d4{animation-delay:260ms;} .d5{animation-delay:330ms;} .d6{animation-delay:400ms;}
-
-/* --------------------------- responsive --------------------------- */
-@media (max-width:820px){
-  .hero-bottom{flex-direction:column;align-items:flex-start;gap:var(--sp-8);}
-  .stats{gap:var(--sp-10);}
+/* 导航 */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  height: var(--nav-height);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
 }
-@media (max-width:640px){
-  .post{grid-template-columns:auto minmax(0,1fr);gap:var(--sp-4);
-    padding:var(--sp-6) var(--sp-2);}
-  .post-meta{grid-column:2;justify-content:flex-start;gap:var(--sp-4);margin-top:var(--sp-2);}
-  .post-arrow{display:none;}
-  .foot{flex-wrap:wrap;justify-content:center;text-align:center;}
-  .foot .mark{display:none;}
+.nav {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
 }
-@media (max-width:420px){
-  .stats{gap:var(--sp-6);}
-  .stat b{font-size:1.5rem;}
+.nav__brand { display: inline-flex; align-items: center; gap: var(--space-3); font-size: var(--text-sm); font-weight: var(--weight-semibold); letter-spacing: -0.01em; }
+.nav__mark {
+  width: var(--space-8); height: var(--space-8);
+  display: grid; place-items: center;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--accent);
+}
+.nav__actions { display: flex; align-items: center; gap: var(--space-5); }
+.nav__link {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.nav__link:hover { color: var(--text); }
+
+/* 首屏 */
+.hero { padding-block: clamp(3rem, 8vw, 6rem) var(--section-y); scroll-margin-top: var(--nav-height); }
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  color: var(--text-faint);
+  text-transform: uppercase;
+}
+.hero h1 {
+  margin-top: var(--space-5);
+  font-size: var(--text-hero);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-display);
+  line-height: 1.08;
+}
+.hero h1 .dot { color: var(--accent); }
+.hero__tagline {
+  margin-top: var(--space-4);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.0625rem;
+  color: var(--text-muted);
+}
+.hero__intro {
+  margin-top: var(--space-8);
+  max-width: var(--measure);
+  color: var(--text-muted);
+}
+.hero__intro strong { color: var(--text); font-weight: var(--weight-semibold); }
+.stats {
+  margin-top: var(--space-8);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  color: var(--text-faint);
+}
+.stats__sep { color: var(--border-strong); }
+
+/* 文章列表 */
+.posts { padding-bottom: var(--section-y); scroll-margin-top: var(--nav-height); }
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--border-strong);
+}
+.section-head h2 { font-size: var(--text-h2); font-weight: var(--weight-semibold); }
+.section-head span {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.post-list { list-style: none; margin: 0; padding: 0; }
+.post__body { min-width: 0; }
+.post {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-2);
+  padding-block: var(--space-5);
+  border-bottom: 1px solid var(--border);
+  color: inherit;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+.post:hover, .post:focus-visible { background: var(--surface); }
+.post__index { display: none; }
+.post__title {
+  font-size: var(--text-h3);
+  font-weight: var(--weight-semibold);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.post:hover .post__title, .post:focus-visible .post__title { color: var(--accent); }
+.post__excerpt { font-size: var(--text-sm); color: var(--text-muted); line-height: 1.6; }
+.post__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-faint);
+}
+.post__tag { color: var(--text-muted); }
+.post__arrow {
+  margin-inline-start: auto;
+  color: var(--text-faint);
+  transition: transform var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+.post:hover .post__arrow { transform: translate(var(--motion-nudge), calc(-1 * var(--motion-nudge))); color: var(--accent); }
+
+/* 页脚 */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding-block: var(--space-8) var(--space-10);
+}
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  font-size: var(--text-xs);
+  color: var(--text-faint);
+}
+.footer-inner a { color: var(--text-muted); transition: color var(--dur-fast) var(--ease-out); }
+.footer-inner a:hover { color: var(--text); }
+
+/* 断点：768px 起展示完整三栏行 */
+@media (min-width: 768px) {
+  .post {
+    grid-template-columns: var(--space-10) minmax(0, 1fr) auto;
+    gap: var(--space-6);
+    align-items: start;
+    padding-block: var(--space-6);
+  }
+  .post__index {
+    display: block;
+    padding-top: var(--space-1);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-faint);
+  }
+  .post__meta { padding-top: var(--space-1); }
+  .post__arrow { margin-inline-start: 0; }
 }
 
-@media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;
-    transition-duration:.01ms!important;scroll-behavior:auto!important;}
-  .rise{opacity:1;transform:none;}
+/* 入场动效：一次、克制 */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal] { animation: rise var(--dur-slow) var(--ease-out) both; }
+  [data-reveal="2"] { animation-delay: 60ms; }
+  [data-reveal="3"] { animation-delay: 120ms; }
+  [data-reveal="4"] { animation-delay: 180ms; }
+  [data-reveal="5"] { animation-delay: 240ms; }
+}
+@keyframes rise {
+  from { transform: translateY(var(--motion-rise)); }
+  to   { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 </style>
 </head>
+
 <body>
+<a class="skip-link" href="#main">跳到主内容</a>
 
-<div class="ambient" aria-hidden="true"></div>
-<div class="grain" aria-hidden="true"></div>
-
-<div class="page">
-
-  <nav class="nav">
-    <a class="brand" href="#" aria-label="个人博客首页">
-      <span class="brand-mark">S</span>
-      <span class="brand-name">song<span>.dev</span></span>
+<header class="site-header">
+  <nav class="container nav" aria-label="主导航">
+    <a class="nav__brand" href="#top" aria-label="song.dev 首页">
+      <span class="nav__mark" aria-hidden="true">S</span>
+      <span>song.dev</span>
     </a>
-    <a class="nav-link" href="https://github.com/song-dev521" target="_blank" rel="noopener">GitHub <span class="ext">↗</span></a>
+    <div class="nav__actions">
+      <a class="nav__link" href="https://github.com/song-dev521" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+    </div>
   </nav>
+</header>
 
-  <header class="hero">
-    <p class="eyebrow rise d1">Personal Blog · Est. 2026</p>
-    <h1 class="rise d2">个人博客<span class="dot" aria-hidden="true"></span></h1>
-    <p class="hero-sub rise d3">写点代码，记点笔记。Notes on code, craft &amp; everything in between.</p>
-    <div class="hero-bottom rise d4">
-      <p class="hero-lede">这里存放我作为开发者一路走来的<strong>思考、踩坑与收获</strong>——不追求正确，只求诚实。欢迎路过，也欢迎常来。</p>
-      <div class="stats">
-        <div class="stat"><b>04</b><span>Posts</span></div>
-        <div class="stat"><b>2026</b><span>Since</span></div>
+<main id="main">
+  <section class="hero" id="top" aria-labelledby="page-title">
+    <div class="container">
+      <p class="eyebrow" data-reveal="1">Personal blog · Est. 2026</p>
+      <h1 id="page-title" data-reveal="2">个人博客<span class="dot">.</span></h1>
+      <p class="hero__tagline" data-reveal="3">写点代码，记点笔记。Notes on code, craft &amp; everything in between.</p>
+      <p class="hero__intro" data-reveal="4">这里存放我作为开发者一路走来的<strong>思考、踩坑与收获</strong>——不追求正确，只求诚实。欢迎路过，也欢迎常来。</p>
+      <div class="stats" data-reveal="5" aria-label="博客统计：4 篇文章，始于 2026 年">
+        <span>04 posts</span>
+        <span class="stats__sep" aria-hidden="true">·</span>
+        <span>since 2026</span>
       </div>
     </div>
-  </header>
+  </section>
 
-  <main>
-    <section aria-labelledby="writing-label">
-      <div class="sec-head rise d4">
-        <h2 id="writing-label"><em>✳</em> &nbsp;近期文章 / Recent Writing</h2>
+  <section class="posts" id="posts" aria-labelledby="posts-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="posts-title">近期文章</h2>
+        <span>/ Recent Writing</span>
       </div>
+      <ol class="post-list">
+        <li>
+          <a class="post" href="我为什么开始写技术博客.html">
+            <span class="post__index" aria-hidden="true">01</span>
+            <div class="post__body">
+              <h3 class="post__title">我为什么开始写技术博客？</h3>
+              <p class="post__excerpt">关于费曼学习法、个人品牌与对抗遗忘的一个开始。</p>
+            </div>
+            <span class="post__meta">
+              <span class="post__tag">成长</span>
+              <time datetime="2026-07-17">2026.07.17</time>
+              <span class="post__arrow" aria-hidden="true">↗</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="post" href="大创项目后端开发总结.html">
+            <span class="post__index" aria-hidden="true">02</span>
+            <div class="post__body">
+              <h3 class="post__title">大创项目后端开发总结</h3>
+              <p class="post__excerpt">13 个接口、6 张表、一个 AI 模块，从零到一的全过程复盘。</p>
+            </div>
+            <span class="post__meta">
+              <span class="post__tag">项目</span>
+              <time datetime="2026-07-18">2026.07.18</time>
+              <span class="post__arrow" aria-hidden="true">↗</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="post" href="一次GitHub推送被拒的经历：我的阿里云密钥是如何暴露的.html">
+            <span class="post__index" aria-hidden="true">03</span>
+            <div class="post__body">
+              <h3 class="post__title">一次 GitHub 推送被拒的经历：我的阿里云密钥是如何暴露的</h3>
+              <p class="post__excerpt">一次真实的踩坑记录，关于密钥泄露、Git 历史清理与环境变量。</p>
+            </div>
+            <span class="post__meta">
+              <span class="post__tag">安全</span>
+              <time datetime="2026-08-25">2026.08.25</time>
+              <span class="post__arrow" aria-hidden="true">↗</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="post" href="善假于物：我在GitHub上挖到的开源宝藏.html">
+            <span class="post__index" aria-hidden="true">04</span>
+            <div class="post__body">
+              <h3 class="post__title">善假于物：我在 GitHub 上挖到的开源宝藏</h3>
+              <p class="post__excerpt">九个免费、开源、真香的宝藏项目：从效率工具到前端美学。</p>
+            </div>
+            <span class="post__meta">
+              <span class="post__tag">开源</span>
+              <time datetime="2026-10-11">2026.10.11</time>
+              <span class="post__arrow" aria-hidden="true">↗</span>
+            </span>
+          </a>
+        </li>
+      </ol>
+    </div>
+  </section>
+</main>
 
-      <div class="posts">
-        <a class="post rise d4" href="我为什么开始写技术博客.html">
-          <span class="post-no">01</span>
-          <div class="post-body">
-            <h3>我为什么开始写技术博客？</h3>
-            <p>关于费曼学习法、个人品牌与对抗遗忘的一个开始。</p>
-          </div>
-          <div class="post-meta">
-            <span class="tag">成长</span>
-            <time class="post-date" datetime="2026-07-17">2026.07.17</time>
-            <span class="post-arrow" aria-hidden="true">↗</span>
-          </div>
-        </a>
-
-        <a class="post rise d5" href="大创项目后端开发总结.html">
-          <span class="post-no">02</span>
-          <div class="post-body">
-            <h3>大创项目后端开发总结</h3>
-            <p>13 个接口、6 张表、一个 AI 模块，从零到一的全过程复盘。</p>
-          </div>
-          <div class="post-meta">
-            <span class="tag">项目</span>
-            <time class="post-date" datetime="2026-07-18">2026.07.18</time>
-            <span class="post-arrow" aria-hidden="true">↗</span>
-          </div>
-        </a>
-
-        <a class="post rise d5" href="一次GitHub推送被拒的经历：我的阿里云密钥是如何暴露的.html">
-          <span class="post-no">03</span>
-          <div class="post-body">
-            <h3>一次 GitHub 推送被拒的经历：我的阿里云密钥是如何暴露的</h3>
-            <p>一次真实的踩坑记录，关于密钥泄露、Git 历史清理与环境变量。</p>
-          </div>
-          <div class="post-meta">
-            <span class="tag">安全</span>
-            <time class="post-date" datetime="2026-08-25">2026.08.25</time>
-            <span class="post-arrow" aria-hidden="true">↗</span>
-          </div>
-        </a>
-
-        <a class="post rise d6" href="善假于物：我在GitHub上挖到的开源宝藏.html">
-          <span class="post-no">04</span>
-          <div class="post-body">
-            <h3>善假于物：我在 GitHub 上挖到的开源宝藏</h3>
-            <p>九个免费、开源、真香的宝藏项目：从效率工具到前端美学。</p>
-          </div>
-          <div class="post-meta">
-            <span class="tag">开源</span>
-            <time class="post-date" datetime="2026-10-11">2026.10.11</time>
-            <span class="post-arrow" aria-hidden="true">↗</span>
-          </div>
-        </a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="foot">
+<footer class="site-footer">
+  <div class="container footer-inner">
     <span>© 2026 song.dev · 记录每一步成长</span>
-    <span class="mark" aria-hidden="true">✦ ✦ ✦</span>
-    <a href="#" class="backtop">回到顶部 ↑</a>
-  </footer>
-
-</div>
+    <a href="#top">回到顶部 ↑</a>
+  </div>
+</footer>
 
 </body>
 </html>
