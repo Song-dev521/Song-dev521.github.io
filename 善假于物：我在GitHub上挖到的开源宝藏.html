@@ -18,7 +18,7 @@
   --border:#E3DFD7; --border-strong:#CFC9BF;
   --text:#141312; --text-muted:#4B4741; --text-faint:#656059;
   --accent:#A63C24; --accent-hover:#8C301B; --accent-soft:rgba(166,60,36,.08);
-  --code-comment:#6B665F; --code-keyword:#A63C24;
+  --code-comment:#5A554F; --code-keyword:#A63C24;
   --code-string:#2F5A35; --code-variable:#4B4741;
   --display:"Inter",system-ui,-apple-system,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
@@ -29,7 +29,7 @@
 html{scroll-behavior:smooth}
 body{
   margin:0;background:var(--bg);color:var(--text);
-  font-family:var(--display);font-size:17px;line-height:1.8;
+  font-family:var(--display);font-size:18px;line-height:1.8;font-weight:500;
   text-rendering:optimizeLegibility;
   overflow-x:hidden;
 }
@@ -72,9 +72,9 @@ h2{font-size:clamp(1.3rem,2.5vw,1.6rem);font-weight:700;letter-spacing:-.02em;
   color:var(--text);margin:48px 0 18px;padding-left:16px;
   border-left:2px solid var(--accent);line-height:1.4}
 h3{font-size:1.125rem;font-weight:600;color:var(--text);margin:32px 0 12px;line-height:1.5}
-p{margin:0 0 18px;color:var(--text-muted)}
+p{margin:0 0 18px;color:var(--text)}
 strong{color:var(--text);font-weight:700}
-ul,ol{margin:14px 0 22px;padding-left:24px;color:var(--text-muted)}
+ul,ol{margin:14px 0 22px;padding-left:24px;color:var(--text)}
 li{margin-bottom:10px}
 a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;
   transition:border-color var(--dur) var(--ease),color var(--dur) var(--ease)}
@@ -83,7 +83,7 @@ a:hover{color:var(--accent-hover);border-bottom-color:currentColor}
 /* 引文 */
 blockquote,.quote,.quote-box{background:var(--surface);border:1px solid var(--border);
   border-left:2px solid var(--accent);border-radius:0 8px 8px 0;
-  padding:18px 22px;margin:24px 0;color:var(--text-muted);font-style:normal}
+  padding:18px 22px;margin:24px 0;color:var(--text);font-style:normal}
 blockquote p{margin:0}
 
 /* 卡片 */
@@ -96,13 +96,13 @@ blockquote p{margin:0}
 .card:hover{border-color:var(--border-strong)}
 .card .icon{font-size:1.5rem;margin-bottom:6px;display:block}
 .card .label{font-size:15px;font-weight:600;color:var(--text)}
-.card .desc{font-size:14px;color:var(--text-muted);margin-top:4px}
+.card .desc{font-size:14px;color:var(--text);margin-top:4px}
 .card .num{font-size:1.9rem;font-weight:700;letter-spacing:-.04em;line-height:1.2;
   color:var(--accent);display:block;margin-bottom:6px}
 
 /* 代码 */
 pre{background:var(--surface);border:1px solid var(--border);color:var(--text);
-  padding:20px 22px;border-radius:8px;overflow-x:auto;font-size:14px;
+  padding:20px 22px;border-radius:8px;overflow-x:auto;font-size:15px;
   font-family:var(--mono);line-height:1.7;margin:20px 0}
 pre .comment{color:var(--code-comment)}
 pre .keyword{color:var(--code-keyword)}
@@ -116,7 +116,7 @@ pre code{background:transparent;border:0;color:inherit;padding:0;font-size:inher
 table{width:100%;border-collapse:collapse;margin:22px 0;font-size:15px}
 th,td{padding:12px 14px;border:1px solid var(--border);text-align:left}
 th{background:var(--surface);color:var(--text);font-weight:600}
-td{color:var(--text-muted)}
+td{color:var(--text)}
 
 /* 分隔与页脚 */
 hr,.divider{border:0;border-top:1px solid var(--border);margin:44px 0 28px}
