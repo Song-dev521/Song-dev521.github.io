@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>先翻档案，再开口：我们如何让大模型学会查校规</title>
+    <style>
+
+/* ============================================================
+   文章阅读页 — 与首页同一套暖白纸张令牌
+   ============================================================ */
+:root{
+  --gray-0:#FFFFFF; --gray-50:#F7F6F3; --gray-100:#EDEBE7;
+  --gray-200:#D8D4CD; --gray-300:#B4AFA6; --gray-400:#8E8981;
+  --gray-500:#6B665F; --gray-600:#4A4641;
+  --bg:var(--gray-0); --bg-subtle:var(--gray-50);
+  --surface:var(--gray-50); --surface-2:var(--gray-100);
+  --border:#E3DFD7; --border-strong:#CFC9BF;
+  --text:#141312; --text-muted:#4B4741; --text-faint:#656059;
+  --accent:#A63C24; --accent-hover:#8C301B; --accent-soft:rgba(166,60,36,.08);
+  --code-comment:#5A554F; --code-keyword:#A63C24;
+  --code-string:#2F5A35; --code-variable:#4B4741;
+  --display:"Inter",system-ui,-apple-system,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --maxw:760px; --pad-x:1.25rem;
+  --dur:140ms; --ease:cubic-bezier(.22,1,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:var(--display);font-size:18px;line-height:1.8;font-weight:500;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+
+/* 导航 */
+.site-nav{
+  width:min(100% - (var(--pad-x)*2),var(--maxw));margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:20px 0;border-bottom:1px solid var(--border);}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{width:32px;height:32px;flex:none;border:1px solid var(--border-strong);
+  border-radius:6px;display:grid;place-items:center;font-family:var(--mono);
+  font-size:12px;color:var(--accent)}
+.brand-name{font-weight:600;letter-spacing:-.01em;font-size:14px}
+.brand-name span{color:var(--text-faint);font-weight:400}
+.nav-links{display:flex;align-items:center;gap:24px}
+.nav-link{font-family:var(--mono);font-size:13px;color:var(--text-muted);
+  display:inline-flex;gap:6px;align-items:center;
+  transition:color var(--dur) var(--ease)}
+.nav-link:hover{color:var(--text)}
+.nav-link .ext{color:var(--accent)}
+.nav-link.back:hover{color:var(--accent)}
+
+.container{
+  width:min(100% - (var(--pad-x)*2),var(--maxw));margin:0 auto;
+  padding:clamp(40px,6vw,72px) 0 88px}
+
+/* 文章头 */
+.header{border-bottom:1px solid var(--border);padding-bottom:26px;margin-bottom:34px}
+h1,.header h1{font-size:clamp(1.9rem,4.6vw,2.85rem);font-weight:700;
+  letter-spacing:-.03em;line-height:1.3;color:var(--text);margin:0 0 14px}
+.meta,.header .meta{font-family:var(--mono);font-size:13px;color:var(--text-faint);
+  display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;margin:0}
+.badge,.tag,.meta .tag,.meta .badge{display:inline-block;font-family:var(--mono);
+  font-size:13px;color:var(--accent);letter-spacing:.03em;margin-top:12px}
+.badge.green{color:var(--accent)}
+
+/* 标题与正文 */
+h2{font-size:clamp(1.3rem,2.5vw,1.6rem);font-weight:700;letter-spacing:-.02em;
+  color:var(--text);margin:48px 0 18px;padding-left:16px;
+  border-left:2px solid var(--accent);line-height:1.4}
+h3{font-size:1.125rem;font-weight:600;color:var(--text);margin:32px 0 12px;line-height:1.5}
+p{margin:0 0 18px;color:var(--text)}
+strong{color:var(--text);font-weight:700}
+ul,ol{margin:14px 0 22px;padding-left:24px;color:var(--text)}
+li{margin-bottom:10px}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;
+  transition:border-color var(--dur) var(--ease),color var(--dur) var(--ease)}
+a:hover{color:var(--accent-hover);border-bottom-color:currentColor}
+
+/* 引文 */
+blockquote,.quote,.quote-box{background:var(--surface);border:1px solid var(--border);
+  border-left:2px solid var(--accent);border-radius:0 8px 8px 0;
+  padding:18px 22px;margin:24px 0;color:var(--text);font-style:normal}
+blockquote p{margin:0}
+
+/* 卡片 */
+.grid-2,.grid-3{display:grid;gap:14px;margin:20px 0}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.card{background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;padding:18px 20px;text-align:left;
+  transition:border-color var(--dur) var(--ease)}
+.card:hover{border-color:var(--border-strong)}
+.card .icon{font-size:1.5rem;margin-bottom:6px;display:block}
+.card .label{font-size:15px;font-weight:600;color:var(--text)}
+.card .desc{font-size:14px;color:var(--text);margin-top:4px}
+.card .num{font-size:1.9rem;font-weight:700;letter-spacing:-.04em;line-height:1.2;
+  color:var(--accent);display:block;margin-bottom:6px}
+
+/* 代码 */
+pre{background:var(--surface);border:1px solid var(--border);color:var(--text);
+  padding:20px 22px;border-radius:8px;overflow-x:auto;font-size:15px;
+  font-family:var(--mono);line-height:1.7;margin:20px 0}
+pre .comment{color:var(--code-comment)}
+pre .keyword{color:var(--code-keyword)}
+pre .string{color:var(--code-string)}
+pre .variable{color:var(--code-variable)}
+code{font-family:var(--mono);font-size:.9em;background:var(--surface-2);
+  border:1px solid var(--border);padding:2px 7px;border-radius:6px;color:var(--accent)}
+pre code{background:transparent;border:0;color:inherit;padding:0;font-size:inherit}
+
+/* 表格 */
+table{width:100%;border-collapse:collapse;margin:22px 0;font-size:15px}
+th,td{padding:12px 14px;border:1px solid var(--border);text-align:left}
+th{background:var(--surface);color:var(--text);font-weight:600}
+td{color:var(--text)}
+
+/* 分隔与页脚 */
+hr,.divider{border:0;border-top:1px solid var(--border);margin:44px 0 28px}
+.footer-note{background:var(--surface);border:1px solid var(--border);
+  padding:18px 22px;border-radius:8px;margin-top:40px;
+  text-align:center;color:var(--text-faint);font-size:14px}
+.footer-note p{margin:0}
+.footer{text-align:center;color:var(--text-faint);font-size:14px;margin-top:16px}
+.end-sign{text-align:center;color:var(--accent);font-size:1.1rem;
+  letter-spacing:.5em;margin-top:20px}
+
+@media(max-width:720px){
+  .grid-2,.grid-3{grid-template-columns:1fr}
+  .nav-links{gap:14px}
+  h1,.header h1{font-size:1.75rem}
+  pre{font-size:12px;padding:14px 16px}
+  table{font-size:12px}
+  th,td{padding:9px 10px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <a class="brand" href="index.html" aria-label="返回博客首页">
+    <span class="brand-mark">S</span>
+    <span class="brand-name">song<span>.dev</span></span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link back" href="index.html">← 返回首页</a>
+    <a class="nav-link" href="https://github.com/song-dev521" target="_blank" rel="noopener">GitHub <span class="ext">↗</span></a>
+  </div>
+</nav>
+
+
+<div class="container">
+    <h1>先翻档案，再开口<br>我们如何让大模型学会查校规</h1>
+
+    <div class="meta">
+        <span>📅 2026年11月27日</span>
+        <span>📖 阅读约 12 分钟</span>
+        <span class="tag"># 项目 · RAG 实战复盘</span>
+    </div>
+
+    <blockquote>
+        <p>写在前面：这是我这学期见习项目的完整复盘。我们组做了一个校园制度智能问答系统——58 份制度文档、7 个领域、867 个切片、9094 条条款入库，前端单页 6 个模式，后端 Flask + ChromaDB + GLM-4-Flash，最终部署上云，评委现场扫码就能访问。这篇不讲"我做了什么"的流水账，重点讲<strong>为什么这么设计</strong>，以及<strong>每个坑是怎么踩的、又是怎么爬出来的</strong>。项目已开源：<a href="https://gitee.com/Sstars-1/atlas-qa" target="_blank" rel="noopener">gitee.com/Sstars-1/atlas-qa ↗</a></p>
+    </blockquote>
+
+    <h2>系统长什么样？</h2>
+
+    <p>先看整体架构，后面所有内容都围绕这张图展开：</p>
+
+    <pre>
+用户提问
+   │  (fetch POST / JSON)
+   ▼
+Flask 后端 (app.py, 11 个接口)
+   │
+   ├─► 领域路由（关键词 + 向量相似度双层）
+   ├─► ChromaDB 向量检索 Top3（bge-small-zh-v1.5 本地编码）
+   ├─► 拼装提示词（检索片段 + 强约束 + 兜底语句）
+   ├─► GLM-4-Flash 在线 API（智能体模式挂 3 个工具）
+   │        └─ 工具轨迹：判领域 → 检索 → 改写追问 → 再检索
+   ▼
+答案 + 出处（文件名 + 行号）返回前端渲染</pre>
+
+    <p>技术栈一句话：<strong>Python 3.11 · Flask · ChromaDB · Sentence-Transformers(bge) · 智谱 GLM-4-Flash · 原生 JS 单页前端 · 华为云 ECS 部署</strong>。</p>
+
+    <h2>先回答一个问题：大模型为什么会"编校规"？</h2>
+
+    <p>大模型有幻觉：会一本正经地编造一条不存在的校规。提示词里写"不要编造"只能约束<strong>行为</strong>，不能凭空增加<strong>知识</strong>——模型的参数里根本没有我们学校的宿舍管理条例。</p>
+
+    <p>RAG（检索增强生成）的思路是：把制度文档切片、向量化存进向量数据库；提问时先检索出最相关的几个片段，塞进提示词，让模型<strong>只依据材料作答</strong>。相当于把闭卷考试改成开卷考试——先帮它翻到那一页，它只要照着念就不会错。</p>
+
+    <p>我们做了个 A/B 对照实验验证这一点：</p>
+
+    <table>
+        <thead>
+        <tr><th>提示词版本</th><th>提供材料？</th><th>"宿舍几点断电"五次运行结果</th></tr>
+        </thead>
+        <tbody>
+        <tr><td>只提问，无角色无约束</td><td>❌</td><td>基本每次都编出具体时间</td></tr>
+        <tr><td>加角色 + 强约束 + 兜底语句</td><td>❌</td><td>仍有若干次编造</td></tr>
+        <tr><td>在上一版基础上附真实片段</td><td>✅</td><td>五次全部准确</td></tr>
+        </tbody>
+    </table>
+
+    <p><strong>只加约束、不给材料，无法彻底阻止幻觉</strong>——这是整个项目里我最有底气的一条结论。</p>
+
+    <h2>切片、向量、召回：三个决定成败的参数</h2>
+
+    <h3>为什么是 300 字重叠 50？</h3>
+
+    <p>切片是 RAG 的地基。为什么必须切？一是 Embedding 模型有最大输入长度限制；二是一份文件常常一半讲宿舍、一半讲奖学金，整篇入库后向量语义混杂，检索时把不相关内容一起带进来。切开后每段只讲一件事，语义才"纯"。相邻切片保留 50 字重叠，是防止一句完整的话正好被切成两半、两边都检索不到完整语义。</p>
+
+    <p>切得太碎，片段脱离上下文，检索结果答非所问；切得太大，噪声多、提示词变长。我们前后试了好几组参数，300/50 是实测下来命中率和噪声的平衡点。<strong>这个参数没有万能答案，必须用自己的数据实测。</strong></p>
+
+    <h3>为什么召回固定 Top 3？</h3>
+
+    <p>只取第一条容易漏掉正确条款；取五到十条噪声变多、提示词超长。还是平衡的艺术。</p>
+
+    <h3>Embedding 凭什么比关键词检索强？</h3>
+
+    <p>Embedding 把文本映射成高维向量，<strong>语义相近的文本距离近</strong>。用户问"宿舍几点熄灯"，制度原文写的是"学生公寓 23:30 断电"——关键词匹配不上"熄灯"，但向量空间里这两个句子距离很近，照样能召回。我们选了 <code>bge-small-zh-v1.5</code>，中文效果好、模型小，本地 CPU 就能跑编码，不花一分钱。</p>
+
+    <h2>最惊艳的一幕：模型自己改写了追问</h2>
+
+    <p>普通 RAG 是一条直线：检索 → 拼提示词 → 生成。智能体模式的区别是<strong>让模型自主决定调什么工具</strong>：我们给模型挂了 3 个工具（领域判定、条款检索、统计查询），模型拿到问题后自己决定先调哪个、拿到结果后再决定下一步，最多 3 轮。</p>
+
+    <p>答辩现场，主讲同学先问"宿舍几点断电"，再追问"那门禁呢"——"门禁"两个字在制度文档里根本检索不到任何东西，但工具轨迹里可以看到，模型把追问<strong>改写成了"宿舍门禁时间"</strong>再去检索，答案准确带出处。这个改写不是我们写代码做的，是模型在工具调用循环里自己完成的。现场有老师专门点了头。</p>
+
+    <h2>防幻觉三道保险</h2>
+
+    <ol>
+        <li><strong>RAG 本身</strong>：只依据检索材料作答；</li>
+        <li><strong>强约束提示词</strong>：写明"找不到信息就回复'暂无相关说明'"，而不是让它自由发挥；</li>
+        <li><strong>展示出处</strong>：每条答案附文件名和条款位置，用户可核查，编没编一眼便知。</li>
+    </ol>
+
+    <p>测试时故意问库外问题，系统稳定回复"暂无相关说明"。<strong>拒答能力比答得多更重要。</strong></p>
+
+    <hr class="divider">
+
+    <h2>十个真实的坑</h2>
+
+    <p>这部分是全文含金量最高的。每个坑都是真实发生的，先上总表：</p>
+
+    <table>
+        <thead>
+        <tr><th>坑</th><th>原因</th><th>解法</th></tr>
+        </thead>
+        <tbody>
+        <tr><td>HuggingFace 下载 429 限流</td><td>每次启动都联网拉模型</td><td>HF_HUB_OFFLINE=1 离线加载</td></tr>
+        <tr><td>改前端模板不生效</td><td>Flask 关闭了模板热重载</td><td>重启进程</td></tr>
+        <tr><td>弹窗"打开了却看不见"</td><td>DOM 在 shadow tree 里，父容器被隐藏</td><td>弹窗移到主文档</td></tr>
+        <tr><td>回答气泡被撑满整屏</td><td>pre-wrap 保留了模型输出的尾部空行</td><td>渲染前 trim + 压缩连续换行</td></tr>
+        <tr><td>WebGL 特效只有两三帧</td><td>粒子计算太重</td><td>改 CSS 3D + Canvas 2D，限帧</td></tr>
+        <tr><td>云上外网访问超时</td><td>安全组没放行端口</td><td>分层排查：EIP → 安全组 → 服务</td></tr>
+        <tr><td>重启后服务挂了</td><td>export 的环境变量只对当前会话有效</td><td>写进 systemd 的 Environment=</td></tr>
+        <tr><td>API Key 进了 Git 历史</td><td>config.py 里硬编码兜底 Key</td><td>git-filter-repo 重写全部历史</td></tr>
+        <tr><td>两人改同一文件推送被拒</td><td>硬冲突</td><td>先看对方改了什么再合并</td></tr>
+        <tr><td>强推挤掉队友的提交</td><td>重写历史前没对齐协作者状态</td><td>靠队友本地完整历史恢复</td></tr>
+        </tbody>
+    </table>
+
+    <h3>展开讲讲最痛的两个</h3>
+
+    <p><strong>坑一：明文密钥进了 Git 历史。</strong>开源清理仓库时发现，明文 API Key 被提交进了历史提交，而且不止一处（配置文档里一处、config.py 兜底配置里一处），users.json 里还有明文密码。删文件只是表面功夫——<strong>git 历史里旧提交照样能翻到</strong>。用 git-filter-repo 重写全部 59 个提交，把 Key 和敏感文件从历史中彻底抹除，再强制推送，最后三层验证（git log -S 搜关键词、逐提交逐文件 grep、核对本地与远端一致）。</p>
+
+    <p>我之前写过一篇<a href="一次GitHub推送被拒的经历：我的阿里云密钥是如何暴露的.html">《一次 GitHub 推送被拒的经历》</a>，那次是 GitHub 的 Secret Scanning 帮我拦住了；这次是自己审出来的——两次经历合起来，三条教训刻进脑子里了：</p>
+
+    <ol>
+        <li>密钥永远走环境变量，从第一个 config.py 开始就别写死；</li>
+        <li>.gitignore 要在建仓当天配好，而不是泄露后补；</li>
+        <li>重写历史只管仓库本身——<strong>暴露过的密钥必须去平台作废重置</strong>，因为可能已经有人 clone 过。</li>
+    </ol>
+
+    <p><strong>坑二：强推挤掉了队友的提交。</strong>重写历史后强推，把队友刚推的提交从 master 上挤掉了——她的提交成了孤儿对象，Gitee 动态里显示"推送成功"，实际任何分支都不指向它。旧提交对象还在服务器上，但谁也 fetch 不到，最终只能靠拥有完整本地历史的她重新强推恢复。<strong>强推前必须确认所有协作者的本地状态</strong>——这不是一个人的仓库，核弹级操作动之前先在群里打个招呼，能省掉一场事故。</p>
+
+    <hr class="divider">
+
+    <h2>沉淀下来的工程习惯</h2>
+
+    <ol>
+        <li><strong>配置集中管理</strong>：接口地址、密钥、模型名全在 config.py 一处，密钥只从环境变量读；</li>
+        <li><strong>命令行先行</strong>：先写 CLI 验证检索和生成，跑通了再上 Flask 和前端——出问题时能立刻区分是 AI 链路的锅还是 Web 层的锅；</li>
+        <li><strong>最小方式验证</strong>：能用 curl 测就不开网页，能把问题缩小到一行就不看整个系统；</li>
+        <li><strong>排错四步法</strong>：先定层级（网络/网关/应用/AI）→ 最小验证 → 看日志 → 一次只改一处，改完立即复测；</li>
+        <li><strong>把报错翻译成人话</strong>：401 查密钥、404 查地址、429 等等再试——把红色堆栈变成用户能懂的提示，是产品意识不只是技术细节；</li>
+        <li><strong>接口契约先行</strong>：前后端先约定 JSON 字段再各干各的，联调几乎没有扯皮。</li>
+    </ol>
+
+    <hr class="divider">
+
+    <h2>写在最后</h2>
+
+    <p>做之前我以为核心难点是"怎么让模型更聪明"，做完发现核心难点是<strong>怎么让系统在真实环境里可靠地跑</strong>——离线加载、异常分级、拒答兜底、日志、快照、回滚，这些不起眼的环节才是工程的大头。检索质量决定回答质量：<strong>召回错了，后面生成得再漂亮也是错的。</strong></p>
+
+    <p>下一步计划：把检索质量做成量化评测（构造标准问答对算命中率），补移动端适配，把"办事窗口状态"这类把制度数据变成实用工具的功能继续做深。</p>
+
+    <hr class="divider">
+
+    <h2>📎 相关资源</h2>
+
+    <ul>
+        <li><a href="https://gitee.com/Sstars-1/atlas-qa" target="_blank" rel="noopener">本项目开源仓库（Gitee）</a></li>
+        <li><a href="https://github.com/newren/git-filter-repo" target="_blank" rel="noopener">git-filter-repo 使用指南</a></li>
+        <li><a href="https://docs.trychroma.com/" target="_blank" rel="noopener">ChromaDB 官方文档</a></li>
+    </ul>
+
+    <div class="footer-note">
+        <p>💡 文中所有数字（58 份 / 867 片段 / 9094 条款 / 300-50 / Top3）均为项目真实统计，可在仓库 data 目录复现。😄</p>
+    </div>
+
+</div>
+
+</body>
+</html>
